@@ -1,0 +1,44 @@
+<section class="benefits-strip" aria-label="Benefícios Pure Essence">
+  <div class="page-width benefits-grid">
+    <div class="benefit-item">
+      <div class="benefit-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z" fill="none" stroke="currentColor" stroke-width="1.45"/><circle cx="12" cy="10" r="2" fill="none" stroke="currentColor" stroke-width="1.45"/></svg>
+      </div>
+      <div><strong>{{ section.settings.title_1 }}</strong><span>{{ section.settings.text_1 }}</span></div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v3.5l2 2V20H7V8.5l2-2V3Z" fill="none" stroke="currentColor" stroke-width="1.45"/><path d="M9 11h6M9 15h6" stroke="currentColor" stroke-width="1.45"/></svg>
+      </div>
+      <div><strong>{{ section.settings.title_2 }}</strong><span>{{ section.settings.text_2 }}</span></div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3V7Zm11 3h3l4 4v2h-7v-6Z" fill="none" stroke="currentColor" stroke-width="1.45"/><circle cx="7" cy="18" r="1.5" fill="none" stroke="currentColor" stroke-width="1.45"/><circle cx="17" cy="18" r="1.5" fill="none" stroke="currentColor" stroke-width="1.45"/></svg>
+      </div>
+      <div><strong>{{ section.settings.title_3 }}</strong><span>{{ section.settings.text_3 }}</span></div>
+    </div>
+    <div class="benefit-item">
+      <div class="benefit-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-width="1.45"/><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.45"/><path d="M12 14v3" stroke="currentColor" stroke-width="1.45" stroke-linecap="round"/></svg>
+      </div>
+      <div><strong>{{ section.settings.title_4 }}</strong><span>{{ section.settings.text_4 }}</span></div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name":"Faixa de benefícios",
+  "settings":[
+    {"type":"text","id":"title_1","label":"Título 1","default":"Origem Dubai"},
+    {"type":"text","id":"text_1","label":"Texto 1","default":"Sofisticação árabe, agora no Brasil"},
+    {"type":"text","id":"title_2","label":"Título 2","default":"Perfumes 100 ml"},
+    {"type":"text","id":"text_2","label":"Texto 2","default":"Frascos criados para marcar presença"},
+    {"type":"text","id":"title_3","label":"Título 3","default":"Envio nacional"},
+    {"type":"text","id":"text_3","label":"Texto 3","default":"Entregamos para todo o Brasil"},
+    {"type":"text","id":"title_4","label":"Título 4","default":"Compra segura"},
+    {"type":"text","id":"text_4","label":"Texto 4","default":"Checkout protegido pela Shopify"}
+  ],
+  "presets":[{"name":"Faixa de benefícios"}]
+}
+{% endschema %}
