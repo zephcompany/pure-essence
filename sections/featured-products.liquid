@@ -1,5 +1,4 @@
-{% assign perfume_handles = 'paradox,only-bleu,swin,rouge,pacific,good,magination,erba,hyper,fine-miyake' | split: ',' %}
-{% assign perfume_titles = 'PARADOX|ONLY BLEU|SWIN|ROUGE|PACIFIC|GOOD|MAGINATION|ERBA|HYPER|FINE MIYAKE' | split: '|' %}
+{% assign all_store_products = collections['all'].products %}
 <section class="section products-section" id="essencia">
   <div class="page-width">
     <div class="section-head section-head--rich">
@@ -8,37 +7,28 @@
         <h2>{{ section.settings.heading_before }} <span class="text-accent">{{ section.settings.heading_highlight }}</span> {{ section.settings.heading_after }}</h2>
         <p class="section-intro">{{ section.settings.intro }}</p>
       </div>
-      <a class="section-link" href="{{ routes.all_products_collection_url }}">
+      <a class="section-link" href="/collections/perfumes">
         <span>Ver todos</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
 
     <div class="product-grid product-grid--home">
-      {% for handle in perfume_handles %}
-        {% assign product_item = all_products[handle] %}
-        {% if product_item != blank %}
+      {% assign shown = 0 %}
+      {% for product_item in all_store_products %}
+        {% if product_item.type == 'Perfume' or product_item.vendor == 'Pure Essence & Co' %}
           {% render 'product-card', product: product_item %}
-        {% else %}
-          {% assign i = forloop.index0 %}
-          <article class="product-card product-card--fallback">
-            <a class="product-card__link" href="/products/{{ handle }}">
-              <div class="product-card__media">
-                <div class="product-card__badges"><span>100 ML</span><span>Dubai</span></div>
-                <img src="https://raw.githubusercontent.com/zephcompany/pure-essence/main/product-images/{{ handle }}-perfume-100ml.jpg" alt="{{ perfume_titles[i] }} perfume 100 ml Pure Essence & Co" loading="lazy">
-              </div>
-              <div class="product-card__meta">
-                <div class="product-card__brand">Pure Essence & Co</div>
-                <h3 class="product-card__title">{{ perfume_titles[i] }}</h3>
-                <div class="product-card__price">R$ 147,00</div>
-                <div class="product-card__volume">Perfume · 100 ml</div>
-              </div>
-            </a>
-            <a class="product-card__cta" href="/products/{{ handle }}">Ver fragrância <span>→</span></a>
-          </article>
+          {% assign shown = shown | plus: 1 %}
+          {% if shown >= 10 %}{% break %}{% endif %}
         {% endif %}
       {% endfor %}
     </div>
+
+    {% if shown == 0 %}
+      <div class="empty-state">
+        Os perfumes ainda não estão disponíveis no canal Loja virtual da Shopify.
+      </div>
+    {% endif %}
   </div>
 </section>
 {% schema %}
