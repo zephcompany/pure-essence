@@ -1,15 +1,9 @@
 <section class="story" id="dubai-brasil">
   <div class="story-grid">
-    <div class="story-media">
-      {% if section.settings.image != blank %}
-        {{ section.settings.image | image_url: width: 1800 | image_tag: loading: 'lazy', alt: 'Pure Essence Dubai para o Brasil' }}
-      {% else %}
-        <div class="story-media__fallback">
-          <img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="520" height="580" loading="lazy">
-          <div class="story-media__label">PURE ESSENCE & CO · DUBAI</div>
-        </div>
-      {% endif %}
+    <div class="story-media story-media--origin-art">
+      <img src="{{ 'arte 3 dobra.png' | asset_url }}" alt="Pure Essence & Co · Dubai" width="1600" height="1600" loading="lazy">
     </div>
+
     <div class="story-copy">
       <div class="eyebrow">{{ section.settings.eyebrow }}</div>
       <h2>{{ section.settings.heading_before }} <span class="text-accent">{{ section.settings.heading_highlight }}</span> {{ section.settings.heading_after }}</h2>
@@ -26,6 +20,34 @@
     </div>
   </div>
 </section>
+
+<style>
+  .story-media--origin-art{
+    background:#0b0b0b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .story-media--origin-art img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+  }
+  @media(max-width:989px){
+    .story-media--origin-art{
+      min-height:0;
+    }
+    .story-media--origin-art img{
+      width:100%;
+      height:auto;
+      object-fit:contain;
+    }
+  }
+</style>
+
 {% schema %}
 {
   "name":"Dubai para o Brasil",
@@ -35,8 +57,7 @@
     {"type":"text","id":"heading_highlight","label":"Destaque","default":"Dubai"},
     {"type":"text","id":"heading_after","label":"Título depois","default":"para o Brasil."},
     {"type":"textarea","id":"text","label":"Texto 1","default":"Pure Essence & Co nasceu inspirada pela sofisticação de Dubai, onde tradição, modernidade e perfumaria se encontram de forma única."},
-    {"type":"textarea","id":"text_2","label":"Texto 2","default":"Agora no Brasil, traduzimos essa origem em fragrâncias de 100 ml desenvolvidas com ingredientes selecionados e paixão genuína pela perfumaria de alta qualidade."},
-    {"type":"image_picker","id":"image","label":"Imagem da seção"}
+    {"type":"textarea","id":"text_2","label":"Texto 2","default":"Agora no Brasil, traduzimos essa origem em fragrâncias de 100 ml desenvolvidas com ingredientes selecionados e paixão genuína pela perfumaria de alta qualidade."}
   ],
   "presets":[{"name":"Dubai para o Brasil"}]
 }
