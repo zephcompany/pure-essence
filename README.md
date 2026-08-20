@@ -9,7 +9,7 @@ Tema Shopify da Pure Essence & Co.
 - Shopify nativo para produto, busca, carrinho e checkout
 
 ## Branch para conectar na Shopify
-`shopify-theme-v1`
+`shopify-theme-ready`
 
 ## Depois de conectar
 1. Em Produtos, altere os 10 perfumes para `Ativo`.
