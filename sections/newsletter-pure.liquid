@@ -1,27 +1,52 @@
-<section class="newsletter-section">
-  <div class="page-width newsletter-shell">
-    <div class="newsletter-copy">
-      <div class="newsletter-icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4V6Z" fill="none" stroke="currentColor" stroke-width="1.45"/><path d="m5 7 7 6 7-6" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div>
-        <div class="eyebrow">{{ section.settings.eyebrow }}</div>
-        <h2>{{ section.settings.heading_before }} <span class="text-accent">{{ section.settings.heading_highlight }}</span></h2>
-        <p>{{ section.settings.text }}</p>
-      </div>
+<section class="club-section">
+  <div class="page-width club-shell">
+    <div class="club-visual" aria-hidden="true">
+      <div class="club-orbit club-orbit--one"></div>
+      <div class="club-orbit club-orbit--two"></div>
+      <img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="180" height="201" loading="lazy">
+      <span class="club-visual__label">PURE ESSENCE & CO · DUBAI → BRASIL</span>
     </div>
 
-    {% form 'customer', class: 'newsletter-form' %}
-      <input type="hidden" name="contact[tags]" value="newsletter">
-      <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">Seu e-mail</label>
-      <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" value="{{ form.email }}" placeholder="seuemail@exemplo.com" required>
-      <button type="submit" aria-label="Cadastrar e-mail">
-        <span>Quero receber</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      {% if form.posted_successfully? %}<p class="newsletter-message">Cadastro realizado. Bem-vindo ao universo Pure Essence.</p>{% endif %}
-      {% if form.errors %}<div class="newsletter-message">{{ form.errors | default_errors }}</div>{% endif %}
-    {% endform %}
+    <div class="club-content">
+      <div class="club-kicker">
+        <span class="club-kicker__line"></span>
+        <span>{{ section.settings.eyebrow }}</span>
+      </div>
+
+      <h2>{{ section.settings.heading_before }} <span class="text-accent">{{ section.settings.heading_highlight }}</span></h2>
+      <p class="club-lead">{{ section.settings.text }}</p>
+
+      <div class="club-perks" aria-label="Benefícios do Pure Essence Club">
+        <div class="club-perk">
+          <span class="club-perk__index">01</span>
+          <div><strong>Lançamentos em primeira mão</strong><span>Descubra novas fragrâncias antes de todo mundo.</span></div>
+        </div>
+        <div class="club-perk">
+          <span class="club-perk__index">02</span>
+          <div><strong>Conteúdo de perfumaria</strong><span>Notas, combinações e histórias por trás das essências.</span></div>
+        </div>
+        <div class="club-perk">
+          <span class="club-perk__index">03</span>
+          <div><strong>Universo Pure Essence</strong><span>Novidades da marca de Dubai ao Brasil.</span></div>
+        </div>
+      </div>
+
+      {% form 'customer', class: 'club-form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter,pure-essence-club">
+        <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">Seu e-mail</label>
+        <div class="club-form__field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4V6Z" fill="none" stroke="currentColor" stroke-width="1.35"/><path d="m5 7 7 6 7-6" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" value="{{ form.email }}" placeholder="Seu melhor e-mail" autocomplete="email" required>
+        </div>
+        <button type="submit">
+          <span>Entrar para o Club</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="club-form__privacy">Sem spam. Só novidades, lançamentos e conteúdo selecionado.</p>
+        {% if form.posted_successfully? %}<p class="newsletter-message">Cadastro realizado. Bem-vindo ao Pure Essence Club.</p>{% endif %}
+        {% if form.errors %}<div class="newsletter-message">{{ form.errors | default_errors }}</div>{% endif %}
+      {% endform %}
+    </div>
   </div>
 </section>
 {% schema %}
