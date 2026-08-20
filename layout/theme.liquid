@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_text | default: '#111111' }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
+    {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+    {{ content_for_header }}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    <style>:root{--pe-bg:{{ settings.color_bg | default: '#f5f1e8' }};--pe-surface:{{ settings.color_surface | default: '#ffffff' }};--pe-text:{{ settings.color_text | default: '#111111' }};--pe-muted:{{ settings.color_muted | default: '#706b63' }};--pe-accent:{{ settings.color_accent | default: '#8b6d3b' }};}</style>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#MainContent">Pular para o conteúdo</a>
+    {% section 'header' %}
+    <main id="MainContent" role="main">{{ content_for_layout }}</main>
+    {% section 'footer' %}
+  </body>
+</html>
