@@ -5,11 +5,63 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="{{ settings.color_text | default: '#111111' }}">
     <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="icon" href="{{ 'pure-essence-mark.webp' | asset_url }}" type="image/webp">
     <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
     {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
     {{ content_for_header }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
-    <style>:root{--pe-bg:{{ settings.color_bg | default: '#f5f1e8' }};--pe-surface:{{ settings.color_surface | default: '#ffffff' }};--pe-text:{{ settings.color_text | default: '#111111' }};--pe-muted:{{ settings.color_muted | default: '#706b63' }};--pe-accent:{{ settings.color_accent | default: '#8b6d3b' }};}</style>
+    <style>
+      :root{--pe-bg:{{ settings.color_bg | default: '#f5f1e8' }};--pe-surface:{{ settings.color_surface | default: '#ffffff' }};--pe-text:{{ settings.color_text | default: '#111111' }};--pe-muted:{{ settings.color_muted | default: '#706b63' }};--pe-accent:{{ settings.color_accent | default: '#b28a4a' }};}
+      body{font-size:14px}
+      .text-accent{color:var(--pe-accent)}
+      .announcement{font-size:9px;padding:8px 18px}
+      .header-inner{height:84px}
+      .header-nav a,.header-actions a{font-size:11px}
+      .brand{display:flex;align-items:center;justify-content:center;min-width:110px}
+      .brand img{margin:0 auto;width:auto}
+      .brand-logo--full{display:block;max-height:66px}
+      .brand-logo--mark{display:none;max-height:50px}
+      .hero--image-only{min-height:0;background:#111}
+      .hero--image-only .hero-media{position:relative;inset:auto;display:block;width:100%}
+      .hero--image-only .hero-media img{width:100%;height:auto;object-fit:cover}
+      .hero-link{display:block}
+      .hero-placeholder{aspect-ratio:16/6;display:grid;place-items:center;background:#111;color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+      .section{padding:72px 0}
+      .section-head{margin-bottom:26px}
+      .section-head h2{font-size:clamp(28px,3.5vw,46px);line-height:1.02}
+      .section-head a{font-size:11px}
+      .eyebrow{font-size:10px}
+      .product-card__brand{font-size:9px}
+      .product-card__title,.product-card__price{font-size:13px}
+      .product-card__volume{font-size:10px}
+      .story-copy{padding:64px clamp(28px,5vw,82px)}
+      .story-copy h2{font-size:clamp(38px,5vw,64px);line-height:.96}
+      .story-copy p{font-size:13px;line-height:1.65}
+      .story-signature{font-size:26px}
+      .collection-hero h1,.cart-page h1,.search-page h1,.page-content h1{font-size:clamp(40px,6vw,68px)}
+      .product-info h1{font-size:clamp(38px,4.5vw,60px)}
+      .product-description{font-size:13px}
+      .footer{padding-top:58px}
+      .footer-logo{width:180px;height:auto;margin-bottom:18px}
+      .footer p,.footer-links a{font-size:12px}
+      .footer h3{font-size:9px}
+      @media(max-width:989px){
+        .header-inner{height:72px}
+        .brand-logo--full{display:none}
+        .brand-logo--mark{display:block}
+        .hero-placeholder{aspect-ratio:4/3}
+        .section{padding:60px 0}
+      }
+      @media(max-width:640px){
+        body{font-size:13px}
+        .announcement{font-size:8px;letter-spacing:.14em}
+        .header-nav{inset:97px 0 auto 0}
+        .section-head h2{font-size:30px}
+        .story-copy h2{font-size:40px}
+        .story-copy{padding:48px 24px}
+        .footer-logo{width:150px}
+      }
+    </style>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </head>
   <body>
