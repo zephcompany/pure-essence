@@ -1,4 +1,40 @@
-<section class="section" id="essencia"><div class="page-width"><div class="section-head"><div><div class="eyebrow">{{ section.settings.eyebrow }}</div><h2>{{ section.settings.heading }}</h2></div><a href="{{ routes.all_products_collection_url }}">Ver todos</a></div>{% assign source_collection = collections[section.settings.collection] %}{% if source_collection == blank %}{% assign source_collection = collections['all'] %}{% endif %}<div class="product-grid">{% for product in source_collection.products limit: section.settings.limit %}{% render 'product-card', product: product %}{% else %}<div class="empty-state">Ative os produtos na Shopify para eles aparecerem aqui.</div>{% endfor %}</div></div></section>
+<section class="section" id="essencia">
+  <div class="page-width">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+        <h2>
+          {{ section.settings.heading_before }}
+          <span class="text-accent">{{ section.settings.heading_highlight }}</span>
+          {{ section.settings.heading_after }}
+        </h2>
+      </div>
+      <a href="{{ routes.all_products_collection_url }}">Ver todos</a>
+    </div>
+
+    {% assign source_collection = collections[section.settings.collection] %}
+    {% if source_collection == blank %}{% assign source_collection = collections['all'] %}{% endif %}
+
+    <div class="product-grid">
+      {% for product in source_collection.products limit: section.settings.limit %}
+        {% render 'product-card', product: product %}
+      {% else %}
+        <div class="empty-state">Os produtos ativos aparecerão aqui automaticamente.</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 {% schema %}
-{"name":"Vitrine de perfumes","settings":[{"type":"text","id":"eyebrow","label":"Texto pequeno","default":"COLEÇÃO PURE ESSENCE"},{"type":"text","id":"heading","label":"Título","default":"Fragrâncias que deixam presença."},{"type":"collection","id":"collection","label":"Coleção"},{"type":"range","id":"limit","label":"Quantidade de produtos","min":4,"max":12,"step":1,"default":10}],"presets":[{"name":"Vitrine de perfumes"}]}
+{
+  "name": "Vitrine de perfumes",
+  "settings": [
+    {"type":"text","id":"eyebrow","label":"Texto pequeno","default":"PURE ESSENCE · 100 ML"},
+    {"type":"text","id":"heading_before","label":"Título antes do destaque","default":"Fragrâncias que"},
+    {"type":"text","id":"heading_highlight","label":"Palavra em destaque","default":"marcam"},
+    {"type":"text","id":"heading_after","label":"Título depois do destaque","default":"presença."},
+    {"type":"collection","id":"collection","label":"Coleção"},
+    {"type":"range","id":"limit","label":"Quantidade de produtos","min":4,"max":12,"step":1,"default":10}
+  ],
+  "presets": [{"name":"Vitrine de perfumes"}]
+}
 {% endschema %}
