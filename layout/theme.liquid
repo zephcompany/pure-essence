@@ -10,6 +10,7 @@
     {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
     {{ content_for_header }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ 'rich-home.css' | asset_url | stylesheet_tag }}
     <style>
       :root{--pe-bg:{{ settings.color_bg | default: '#f5f1e8' }};--pe-surface:{{ settings.color_surface | default: '#ffffff' }};--pe-text:{{ settings.color_text | default: '#111111' }};--pe-muted:{{ settings.color_muted | default: '#706b63' }};--pe-accent:{{ settings.color_accent | default: '#b28a4a' }};}
       body{font-size:14px}
@@ -41,7 +42,6 @@
       .collection-hero h1,.cart-page h1,.search-page h1,.page-content h1{font-size:clamp(40px,6vw,68px)}
       .product-info h1{font-size:clamp(38px,4.5vw,60px)}
       .product-description{font-size:13px}
-      .footer{padding-top:58px}
       .footer-logo{width:180px;height:auto;margin-bottom:18px}
       .footer p,.footer-links a{font-size:12px}
       .footer h3{font-size:9px}
