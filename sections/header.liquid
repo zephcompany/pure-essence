@@ -1,0 +1,25 @@
+<div class="announcement">{{ section.settings.announcement }}</div>
+<header class="site-header">
+  <div class="page-width header-inner">
+    <div>
+      <button class="mobile-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" data-menu-toggle>☰</button>
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a href="{{ routes.all_products_collection_url }}" data-close-menu>Perfumes</a>
+        <a href="{{ routes.root_url }}#essencia" data-close-menu>Nossa essência</a>
+        <a href="{{ routes.root_url }}#dubai-brasil" data-close-menu>Dubai → Brasil</a>
+      </nav>
+    </div>
+    <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {% if section.settings.logo != blank %}
+        {{ section.settings.logo | image_url: width: 420 | image_tag: loading: 'eager', alt: shop.name }}
+      {% else %}PURE ESSENCE & CO{% endif %}
+    </a>
+    <div class="header-actions">
+      <a class="search-link" href="{{ routes.search_url }}">Buscar</a>
+      <a href="{{ routes.cart_url }}">Sacola ({{ cart.item_count }})</a>
+    </div>
+  </div>
+</header>
+{% schema %}
+{"name":"Header","settings":[{"type":"text","id":"announcement","label":"Faixa superior","default":"PURE ESSENCE & CO · DUBAI → BRASIL · PERFUMES 100 ML"},{"type":"image_picker","id":"logo","label":"Logo"}]}
+{% endschema %}

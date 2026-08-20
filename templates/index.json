@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "hero": {"type": "hero-pure", "settings": {}},
+    "featured": {"type": "featured-products", "settings": {"limit": 10}},
+    "story": {"type": "story-dubai", "settings": {}}
+  },
+  "order": ["hero", "featured", "story"]
+}
