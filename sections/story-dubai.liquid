@@ -2,34 +2,42 @@
   <div class="story-grid">
     <div class="story-media">
       {% if section.settings.image != blank %}
-        {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', alt: 'Pure Essence Dubai para o Brasil' }}
+        {{ section.settings.image | image_url: width: 1800 | image_tag: loading: 'lazy', alt: 'Pure Essence Dubai para o Brasil' }}
+      {% else %}
+        <div class="story-media__fallback">
+          <img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="520" height="580" loading="lazy">
+          <div class="story-media__label">PURE ESSENCE & CO · DUBAI</div>
+        </div>
       {% endif %}
     </div>
     <div class="story-copy">
       <div class="eyebrow">{{ section.settings.eyebrow }}</div>
-      <h2>
-        {{ section.settings.heading_before }}
-        <span class="text-accent">{{ section.settings.heading_highlight }}</span>
-        {{ section.settings.heading_after }}
-      </h2>
+      <h2>{{ section.settings.heading_before }} <span class="text-accent">{{ section.settings.heading_highlight }}</span> {{ section.settings.heading_after }}</h2>
       <p>{{ section.settings.text }}</p>
       <p>{{ section.settings.text_2 }}</p>
+
+      <div class="story-stats">
+        <div><strong>Dubai</strong><span>Origem da inspiração</span></div>
+        <div><strong>Brasil</strong><span>Onde a experiência continua</span></div>
+        <div><strong>100 ml</strong><span>Em cada fragrância</span></div>
+      </div>
+
       <div class="story-signature" dir="rtl">من دبي إلى البرازيل</div>
     </div>
   </div>
 </section>
 {% schema %}
 {
-  "name": "Dubai para o Brasil",
-  "settings": [
+  "name":"Dubai para o Brasil",
+  "settings":[
     {"type":"text","id":"eyebrow","label":"Texto pequeno","default":"NOSSA ORIGEM"},
-    {"type":"text","id":"heading_before","label":"Título antes do destaque","default":"De"},
-    {"type":"text","id":"heading_highlight","label":"Palavra em destaque","default":"Dubai"},
-    {"type":"text","id":"heading_after","label":"Título depois do destaque","default":"para o Brasil."},
+    {"type":"text","id":"heading_before","label":"Título antes","default":"De"},
+    {"type":"text","id":"heading_highlight","label":"Destaque","default":"Dubai"},
+    {"type":"text","id":"heading_after","label":"Título depois","default":"para o Brasil."},
     {"type":"textarea","id":"text","label":"Texto 1","default":"Pure Essence & Co nasceu inspirada pela sofisticação de Dubai, onde tradição, modernidade e perfumaria se encontram de forma única."},
     {"type":"textarea","id":"text_2","label":"Texto 2","default":"Agora no Brasil, traduzimos essa origem em fragrâncias de 100 ml desenvolvidas com ingredientes selecionados e paixão genuína pela perfumaria de alta qualidade."},
     {"type":"image_picker","id":"image","label":"Imagem da seção"}
   ],
-  "presets": [{"name":"Dubai para o Brasil"}]
+  "presets":[{"name":"Dubai para o Brasil"}]
 }
 {% endschema %}
