@@ -4,8 +4,7 @@
     "benefits": {"type": "benefits-strip", "settings": {}},
     "featured": {"type": "featured-products", "settings": {}},
     "pillars": {"type": "brand-pillars", "settings": {}},
-    "story": {"type": "story-dubai", "settings": {}},
-    "newsletter": {"type": "newsletter-pure", "settings": {}}
+    "story": {"type": "story-dubai", "settings": {}}
   },
-  "order": ["hero", "benefits", "featured", "pillars", "story", "newsletter"]
+  "order": ["hero", "benefits", "featured", "pillars", "story"]
 }
