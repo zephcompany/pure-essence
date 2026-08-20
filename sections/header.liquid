@@ -31,12 +31,7 @@
     </div>
 
     <a class="brand" href="{{ routes.root_url }}" aria-label="Pure Essence & Co">
-      {% if section.settings.logo != blank %}
-        {{ section.settings.logo | image_url: width: 520 | image_tag: loading: 'eager', alt: 'Pure Essence & Co' }}
-      {% else %}
-        <img class="brand-logo brand-logo--full" src="{{ 'pure-essence-logo.webp' | asset_url }}" alt="Pure Essence & Co" width="360" height="255" loading="eager">
-        <img class="brand-logo brand-logo--mark" src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="Pure Essence & Co" width="180" height="201" loading="eager">
-      {% endif %}
+      <img class="brand-logo brand-logo--menu" src="{{ 'menu-logo.webp' | asset_url }}" alt="Pure Essence & Co" width="102" height="120" loading="eager" style="display:block;width:auto;height:54px;max-width:100%;object-fit:contain;margin:auto">
     </a>
 
     <div class="header-actions">
@@ -56,8 +51,7 @@
 {
   "name": "Header",
   "settings": [
-    {"type":"text","id":"announcement","label":"Faixa superior","default":"DE DUBAI PARA O BRASIL · PERFUMES 100 ML · ENVIO PARA TODO O BRASIL"},
-    {"type":"image_picker","id":"logo","label":"Substituir logo padrão"}
+    {"type":"text","id":"announcement","label":"Faixa superior","default":"DE DUBAI PARA O BRASIL · PERFUMES 100 ML · ENVIO PARA TODO O BRASIL"}
   ]
 }
 {% endschema %}
