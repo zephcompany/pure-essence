@@ -9,11 +9,16 @@
         <a href="{{ routes.root_url }}#dubai-brasil" data-close-menu>Dubai → Brasil</a>
       </nav>
     </div>
-    <a class="brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+
+    <a class="brand" href="{{ routes.root_url }}" aria-label="Pure Essence & Co">
       {% if section.settings.logo != blank %}
-        {{ section.settings.logo | image_url: width: 420 | image_tag: loading: 'eager', alt: shop.name }}
-      {% else %}PURE ESSENCE & CO{% endif %}
+        {{ section.settings.logo | image_url: width: 520 | image_tag: loading: 'eager', alt: 'Pure Essence & Co' }}
+      {% else %}
+        <img class="brand-logo brand-logo--full" src="{{ 'pure-essence-logo.webp' | asset_url }}" alt="Pure Essence & Co" width="360" height="255" loading="eager">
+        <img class="brand-logo brand-logo--mark" src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="Pure Essence & Co" width="180" height="201" loading="eager">
+      {% endif %}
     </a>
+
     <div class="header-actions">
       <a class="search-link" href="{{ routes.search_url }}">Buscar</a>
       <a href="{{ routes.cart_url }}">Sacola ({{ cart.item_count }})</a>
@@ -21,5 +26,11 @@
   </div>
 </header>
 {% schema %}
-{"name":"Header","settings":[{"type":"text","id":"announcement","label":"Faixa superior","default":"PURE ESSENCE & CO · DUBAI → BRASIL · PERFUMES 100 ML"},{"type":"image_picker","id":"logo","label":"Logo"}]}
+{
+  "name": "Header",
+  "settings": [
+    {"type":"text","id":"announcement","label":"Faixa superior","default":"DE DUBAI PARA O BRASIL · PERFUMES 100 ML"},
+    {"type":"image_picker","id":"logo","label":"Substituir logo padrão"}
+  ]
+}
 {% endschema %}
