@@ -2,7 +2,7 @@
 <html lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="theme-color" content="{{ settings.color_text | default: '#111111' }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon.png' | asset_url }}">
@@ -16,6 +16,7 @@
     {{ 'product-rich.css' | asset_url | stylesheet_tag }}
     {{ 'product-content.css' | asset_url | stylesheet_tag }}
     {{ 'refine-club.css' | asset_url | stylesheet_tag }}
+    {{ 'mobile-audit.css' | asset_url | stylesheet_tag }}
     <style>
       :root{--pe-bg:{{ settings.color_bg | default: '#f5f1e8' }};--pe-surface:{{ settings.color_surface | default: '#ffffff' }};--pe-text:{{ settings.color_text | default: '#111111' }};--pe-muted:{{ settings.color_muted | default: '#706b63' }};--pe-accent:{{ settings.color_accent | default: '#b28a4a' }};}
       body{font-size:14px}
@@ -60,7 +61,6 @@
       @media(max-width:640px){
         body{font-size:13px}
         .announcement{font-size:8px;letter-spacing:.14em}
-        .header-nav{inset:97px 0 auto 0}
         .section-head h2{font-size:30px}
         .story-copy h2{font-size:40px}
         .story-copy{padding:48px 24px}
