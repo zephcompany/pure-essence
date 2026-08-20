@@ -1,8 +1,11 @@
 {
   "sections": {
     "hero": {"type": "hero-pure", "settings": {}},
-    "featured": {"type": "featured-products", "settings": {"limit": 10}},
-    "story": {"type": "story-dubai", "settings": {}}
+    "benefits": {"type": "benefits-strip", "settings": {}},
+    "featured": {"type": "featured-products", "settings": {}},
+    "pillars": {"type": "brand-pillars", "settings": {}},
+    "story": {"type": "story-dubai", "settings": {}},
+    "newsletter": {"type": "newsletter-pure", "settings": {}}
   },
-  "order": ["hero", "featured", "story"]
+  "order": ["hero", "benefits", "featured", "pillars", "story", "newsletter"]
 }
