@@ -1,4 +1,31 @@
-<section class="hero"><div class="hero-media">{% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', alt: section.settings.heading }}{% endif %}</div><div class="hero-overlay"></div><div class="page-width hero-content"><div class="hero-copy"><div class="eyebrow">{{ section.settings.eyebrow }}</div><h1>{{ section.settings.heading }}</h1><p>{{ section.settings.text }}</p><a class="button button--light" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a></div></div></section>
+{% assign desktop_image = section.settings.image %}
+{% assign mobile_image = section.settings.mobile_image %}
+<section class="hero hero--image-only">
+  {% if desktop_image != blank or mobile_image != blank %}
+    {% if section.settings.link != blank %}<a class="hero-link" href="{{ section.settings.link }}">{% endif %}
+      <picture class="hero-media">
+        {% if mobile_image != blank %}
+          <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 1200 }}">
+        {% endif %}
+        {% if desktop_image != blank %}
+          {{ desktop_image | image_url: width: 2600 | image_tag: loading: 'eager', fetchpriority: 'high', alt: shop.name }}
+        {% else %}
+          {{ mobile_image | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', alt: shop.name }}
+        {% endif %}
+      </picture>
+    {% if section.settings.link != blank %}</a>{% endif %}
+  {% else %}
+    <div class="hero-placeholder"><span>Adicione o banner da Pure Essence no editor do tema.</span></div>
+  {% endif %}
+</section>
 {% schema %}
-{"name":"Hero Pure Essence","settings":[{"type":"text","id":"eyebrow","label":"Texto pequeno","default":"NASCIDA EM DUBAI · AGORA NO BRASIL"},{"type":"text","id":"heading","label":"Título","default":"O luxo de Dubai em uma essência que fica."},{"type":"textarea","id":"text","label":"Descrição","default":"Fragrâncias sofisticadas, criadas para despertar sensações e eternizar momentos. Pure Essence & Co une a inspiração de Dubai à elegância atemporal da alta perfumaria."},{"type":"text","id":"button_label","label":"Texto do botão","default":"Conheça as fragrâncias"},{"type":"url","id":"button_link","label":"Link do botão"},{"type":"image_picker","id":"image","label":"Banner desktop"}],"presets":[{"name":"Hero Pure Essence"}]}
+{
+  "name": "Hero banner",
+  "settings": [
+    {"type":"image_picker","id":"image","label":"Banner desktop"},
+    {"type":"image_picker","id":"mobile_image","label":"Banner mobile"},
+    {"type":"url","id":"link","label":"Link do banner"}
+  ],
+  "presets": [{"name":"Hero banner"}]
+}
 {% endschema %}
