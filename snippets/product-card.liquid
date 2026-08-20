@@ -1,1 +1,36 @@
-<article class="product-card"><a href="{{ product.url }}"><div class="product-card__media">{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.title }}{% else %}{{ 'product-1' | placeholder_svg_tag }}{% endif %}</div><div class="product-card__meta"><div class="product-card__brand">Pure Essence & Co</div><h3 class="product-card__title">{{ product.title }}</h3><div class="product-card__price">{{ product.price | money }}</div><div class="product-card__volume">Perfume · 100 ml</div></div></a></article>
+{% assign first_variant = product.selected_or_first_available_variant %}
+<article class="product-card">
+  <a class="product-card__link" href="{{ product.url }}">
+    <div class="product-card__media">
+      <div class="product-card__badges">
+        <span>100 ML</span>
+        <span>Dubai</span>
+      </div>
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.title }}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag }}
+      {% endif %}
+      <div class="product-card__hover">Ver fragrância</div>
+    </div>
+    <div class="product-card__meta">
+      <div class="product-card__brand">Pure Essence & Co</div>
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <div class="product-card__price-row">
+        <div class="product-card__price">{{ product.price | money }}</div>
+        <div class="product-card__volume">Perfume · 100 ml</div>
+      </div>
+    </div>
+  </a>
+  {% if first_variant != blank and first_variant.available %}
+    {% form 'product', product, class: 'product-card__form' %}
+      <input type="hidden" name="id" value="{{ first_variant.id }}">
+      <button class="product-card__cta" type="submit">
+        <span>Adicionar à sacola</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5h11l1 11h-13l1-11Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 9V7a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+    {% endform %}
+  {% else %}
+    <a class="product-card__cta" href="{{ product.url }}"><span>Ver fragrância</span><span>→</span></a>
+  {% endif %}
+</article>
