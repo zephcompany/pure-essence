@@ -100,18 +100,13 @@
       <div class="pe-product-description-card__head">
         <div>
           <div class="eyebrow">PURE ESSENCE · 100 ML</div>
-          <h2>Descrição</h2>
+          <h2>Conheça a fragrância</h2>
         </div>
         <img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="120" height="134" loading="lazy">
       </div>
 
       <div class="pe-product-description-body">
-        {% if product.description != blank %}
-          {{ product.description }}
-        {% else %}
-          <p><strong>{{ product.title }}</strong> é uma fragrância Pure Essence & Co de 100 ml, criada para transformar presença em memória.</p>
-          <p>Uma composição elegante e marcante, inspirada na sofisticação de Dubai e pensada para acompanhar momentos que merecem ser lembrados.</p>
-        {% endif %}
+        {% render 'product-olfactory-profile', product: product %}
       </div>
 
       <div class="pe-product-facts">
@@ -157,6 +152,33 @@
           {% endif %}
         {% endif %}
       {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="pe-faq">
+  <div class="page-width pe-faq__wrap">
+    <div class="pe-faq__intro">
+      <div class="eyebrow">DÚVIDAS SOBRE A PURE</div>
+      <h2>Perguntas <span class="text-accent">Frequentes.</span></h2>
+      <p>O essencial antes de escolher sua fragrância.</p>
+    </div>
+
+    <div class="pe-faq__list">
+      <details open>
+        <summary><span>01</span><strong>Os perfumes da Pure Essence têm boa fixação?</strong><b>+</b></summary>
+        <div class="pe-faq__answer">Sim. As fragrâncias Pure Essence & Co são desenvolvidas com matérias-primas selecionadas e concentração pensada para entregar boa performance e presença ao longo do uso. Como em qualquer perfume, fixação e projeção podem variar de acordo com pele, clima, quantidade aplicada e características individuais de cada fragrância.</div>
+      </details>
+
+      <details>
+        <summary><span>02</span><strong>Posso receber uma amostra antes de comprar?</strong><b>+</b></summary>
+        <div class="pe-faq__answer">No momento, não trabalhamos com envio de amostras antes da compra. Para ajudar na escolha, cada página apresenta classificação olfativa, notas de topo, coração e fundo, ocasiões de uso e a personalidade da fragrância. Em caso de necessidade de troca ou devolução, consulte a política vigente da Pure Essence & Co no site.</div>
+      </details>
+
+      <details>
+        <summary><span>03</span><strong>Posso confiar na Pure Essence? Minha compra vai chegar?</strong><b>+</b></summary>
+        <div class="pe-faq__answer">A Pure Essence & Co é uma marca que nasce da sofisticação de Dubai e chega ao Brasil com uma proposta clara: tornar a alta perfumaria parte de momentos reais. As compras são realizadas pelo site oficial, com checkout protegido pela Shopify e acompanhamento do pedido após a confirmação. Nossa prioridade é oferecer uma experiência à altura da marca, da escolha da fragrância até a entrega.</div>
+      </details>
     </div>
   </div>
 </section>
