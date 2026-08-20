@@ -1,0 +1,49 @@
+/* Pure Essence Club */
+.club-section{background:#111;color:#fff;padding:0;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.club-shell{display:grid;grid-template-columns:minmax(320px,.8fr) minmax(0,1.2fr);min-height:520px;padding-top:0!important;padding-bottom:0!important}
+.club-visual{position:relative;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 50% 46%,#2b261f 0,#191714 48%,#111 76%);border-right:1px solid rgba(255,255,255,.09)}
+.club-visual:after{content:"";position:absolute;inset:22px;border:1px solid rgba(178,138,74,.13);pointer-events:none}
+.club-orbit{position:absolute;border:1px solid rgba(178,138,74,.18);border-radius:50%}
+.club-orbit--one{width:340px;height:340px}.club-orbit--two{width:470px;height:470px;opacity:.55}
+.club-visual img{width:min(38%,180px);height:auto;position:relative;z-index:2;filter:drop-shadow(0 24px 36px rgba(0,0,0,.4));opacity:.92}
+.club-visual__label{position:absolute;left:34px;bottom:30px;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.42);z-index:2}
+.club-content{padding:64px clamp(30px,5vw,82px);display:flex;flex-direction:column;justify-content:center}
+.club-kicker{display:flex;align-items:center;gap:12px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.club-kicker__line{display:block;width:34px;height:1px;background:var(--pe-accent)}
+.club-content h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(40px,5vw,66px);font-weight:400;letter-spacing:-.05em;line-height:.93;margin:14px 0 18px;max-width:720px}
+.club-content .text-accent{color:var(--pe-accent)}
+.club-lead{font-size:12px;line-height:1.7;color:rgba(255,255,255,.58);max-width:620px;margin:0}
+.club-perks{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:34px 0 28px;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.club-perk{display:flex;gap:12px;padding:17px 16px 17px 0;border-right:1px solid rgba(255,255,255,.1)}
+.club-perk:not(:first-child){padding-left:16px}.club-perk:last-child{border-right:0}
+.club-perk__index{font-size:8px;letter-spacing:.14em;color:var(--pe-accent);padding-top:2px}
+.club-perk strong{display:block;font-size:10px;line-height:1.35;margin-bottom:4px;letter-spacing:.02em}
+.club-perk div span{display:block;font-size:9px;line-height:1.45;color:rgba(255,255,255,.42)}
+.club-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start}
+.club-form__field{height:52px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);display:flex;align-items:center;gap:10px;padding:0 14px;transition:.2s}
+.club-form__field:focus-within{border-color:rgba(178,138,74,.8);background:rgba(255,255,255,.06)}
+.club-form__field svg{width:17px;height:17px;color:var(--pe-accent);flex:0 0 auto}
+.club-form__field input{width:100%;height:100%;border:0;background:transparent;color:#fff;outline:0;padding:0;font-size:11px}
+.club-form__field input::placeholder{color:rgba(255,255,255,.36)}
+.club-form button{height:52px;border:1px solid var(--pe-accent);background:var(--pe-accent);color:#111;padding:0 18px;display:flex;align-items:center;justify-content:center;gap:18px;text-transform:uppercase;font-size:9px;letter-spacing:.12em;font-weight:700;transition:.2s}
+.club-form button:hover{background:#c59a55;border-color:#c59a55}.club-form button svg{width:16px;height:16px}
+.club-form__privacy{grid-column:1/-1;font-size:8px;color:rgba(255,255,255,.35);margin:4px 0 0;letter-spacing:.02em}
+.newsletter-message{grid-column:1/-1;font-size:10px;margin:6px 0 0;color:#fff}
+
+/* Premium trust suite */
+.trust-suite{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid rgba(255,255,255,.11);margin-bottom:52px}
+.trust-suite__item{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:24px 26px;border-right:1px solid rgba(255,255,255,.11);min-height:96px;transition:background .25s}
+.trust-suite__item:first-child{padding-left:0}.trust-suite__item:last-child{border-right:0;padding-right:0}
+.trust-suite__item:hover{background:rgba(255,255,255,.025)}
+.trust-suite__icon{width:42px;height:42px;border:1px solid rgba(178,138,74,.38);border-radius:50%;display:grid;place-items:center;color:var(--pe-accent);flex:0 0 auto}
+.trust-suite__icon svg{width:19px;height:19px}.trust-suite__copy strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;color:#fff}.trust-suite__copy span{display:block;font-size:10px;line-height:1.4;color:rgba(255,255,255,.46)}
+.trust-suite__number{font-size:8px;letter-spacing:.14em;color:rgba(255,255,255,.24);align-self:start;padding-top:4px}
+
+@media(max-width:989px){
+  .club-shell{grid-template-columns:1fr}.club-visual{min-height:300px;border-right:0;border-bottom:1px solid rgba(255,255,255,.09)}
+  .club-visual img{width:min(26%,150px)}.club-content{padding:48px 0}.club-perks{grid-template-columns:1fr}.club-perk{border-right:0;border-bottom:1px solid rgba(255,255,255,.1);padding:14px 0!important}.club-perk:last-child{border-bottom:0}
+  .trust-suite{grid-template-columns:1fr}.trust-suite__item{border-right:0;border-bottom:1px solid rgba(255,255,255,.11);padding:20px 0}.trust-suite__item:last-child{border-bottom:0}
+}
+@media(max-width:640px){
+  .club-visual{min-height:240px}.club-visual__label{left:18px;bottom:18px}.club-content{padding:38px 0}.club-content h2{font-size:40px}.club-lead{font-size:11px}.club-perks{margin:28px 0 22px}.club-form{grid-template-columns:1fr}.club-form button{width:100%}.club-form__privacy{font-size:8px}.trust-suite__item{grid-template-columns:auto 1fr;gap:12px}.trust-suite__number{display:none}
+}
