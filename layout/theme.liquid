@@ -14,6 +14,7 @@
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     {{ 'rich-home.css' | asset_url | stylesheet_tag }}
     {{ 'product-rich.css' | asset_url | stylesheet_tag }}
+    {{ 'product-content.css' | asset_url | stylesheet_tag }}
     {{ 'refine-club.css' | asset_url | stylesheet_tag }}
     <style>
       :root{--pe-bg:{{ settings.color_bg | default: '#f5f1e8' }};--pe-surface:{{ settings.color_surface | default: '#ffffff' }};--pe-text:{{ settings.color_text | default: '#111111' }};--pe-muted:{{ settings.color_muted | default: '#706b63' }};--pe-accent:{{ settings.color_accent | default: '#b28a4a' }};}
