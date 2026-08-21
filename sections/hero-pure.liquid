@@ -1,24 +1,24 @@
-<section class="hero hero--asset">
+<section class="hero hero--mobile-only">
   {% if section.settings.link != blank %}<a class="hero-link" href="{{ section.settings.link }}">{% endif %}
-    <picture class="hero-asset-picture">
-      <source media="(max-width: 749px)" srcset="{{ 'banner mob.png' | asset_url }}">
-      <img class="hero-asset-image" src="{{ 'banner desk.png' | asset_url }}" alt="Pure Essence & Co" loading="eager" fetchpriority="high">
-    </picture>
+    <img class="hero-mobile-image" src="{{ 'banner mob.png' | asset_url }}" alt="Pure Essence & Co" loading="eager" fetchpriority="high">
   {% if section.settings.link != blank %}</a>{% endif %}
 </section>
 
 <style>
-  .hero--asset{width:100%;margin:0;padding:0;background:#111;overflow:hidden;min-height:0!important}
-  .hero-asset-picture,.hero--asset .hero-link{display:block;width:100%;margin:0;padding:0}
-  .hero-asset-image{display:block;width:100%!important;height:auto!important;max-width:none!important;object-fit:contain!important;object-position:center!important;margin:0;padding:0}
+  .hero--mobile-only{display:none;width:100%;margin:0;padding:0;background:#111;overflow:hidden}
+  .hero--mobile-only .hero-link{display:block;width:100%}
+  .hero-mobile-image{display:block;width:100%!important;height:auto!important;max-width:none!important;object-fit:contain!important;object-position:center!important;margin:0!important;padding:0!important}
+  @media(max-width:749px){
+    .hero--mobile-only{display:block!important}
+  }
 </style>
 
 {% schema %}
 {
-  "name":"Hero banner",
+  "name":"Hero mobile",
   "settings":[
     {"type":"url","id":"link","label":"Link do banner"}
   ],
-  "presets":[{"name":"Hero banner"}]
+  "presets":[{"name":"Hero mobile"}]
 }
 {% endschema %}
