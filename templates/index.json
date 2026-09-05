@@ -3,8 +3,7 @@
     "hero": {"type": "hero-pure", "settings": {}},
     "benefits": {"type": "benefits-strip", "settings": {}},
     "featured": {"type": "featured-products", "settings": {}},
-    "body_splash": {"type": "featured-body-splash", "settings": {}},
     "story": {"type": "story-dubai", "settings": {}}
   },
-  "order": ["hero", "benefits", "featured", "body_splash", "story"]
+  "order": ["hero", "benefits", "featured", "story"]
 }
