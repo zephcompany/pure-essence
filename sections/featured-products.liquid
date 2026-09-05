@@ -22,9 +22,11 @@
       {% assign shown = 0 %}
       {% for featured_handle in featured_handles %}
         {% assign product_item = all_products[featured_handle] %}
-        {% if product_item != blank and product_item.tags contains 'hidden-combo' == false %}
-          {% render 'product-card', product: product_item %}
-          {% assign shown = shown | plus: 1 %}
+        {% if product_item != blank %}
+          {% unless product_item.tags contains 'hidden-combo' %}
+            {% render 'product-card', product: product_item %}
+            {% assign shown = shown | plus: 1 %}
+          {% endunless %}
         {% endif %}
       {% endfor %}
     </div>
