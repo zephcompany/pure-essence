@@ -14,26 +14,65 @@
       <form action="{{ routes.cart_url }}" method="post" class="pe-cart__form">
         <div class="pe-cart__items">
           {% for item in cart.items %}
-            <article class="pe-cart-item">
-              <a class="pe-cart-item__media" href="{{ item.url }}" aria-label="Ver {{ item.product.title }}">
-                {% if item.image %}
-                  {{ item.image | image_url: width: 520 | image_tag: loading: 'lazy', alt: item.product.title }}
-                {% endif %}
-              </a>
+            {% assign is_combo = false %}
+            {% if item.product.type == 'Combo' or item.product.handle contains '-combo' %}{% assign is_combo = true %}{% endif %}
+            {% assign combo_perfume = blank %}
+            {% assign combo_splash = blank %}
+            {% assign combo_base = '' %}
+            {% if is_combo %}
+              {% assign combo_base = item.product.handle | replace: '-combo', '' %}
+              {% assign combo_perfume = all_products[combo_base] %}
+              {% assign combo_splash_handle = combo_base | append: '-body-splash' %}
+              {% assign combo_splash = all_products[combo_splash_handle] %}
+            {% endif %}
+
+            <article class="pe-cart-item{% if is_combo %} pe-cart-item--combo{% endif %}">
+              {% if is_combo and combo_perfume != blank and combo_splash != blank %}
+                <div class="pe-cart-item__media pe-cart-item__media--combo" aria-label="Perfume e Body Splash {{ combo_base | replace: '-', ' ' }}">
+                  <a href="{{ combo_perfume.url }}" class="pe-cart-combo-shot pe-cart-combo-shot--perfume" aria-label="Ver {{ combo_perfume.title }}">
+                    {% if combo_perfume.featured_image %}
+                      {{ combo_perfume.featured_image | image_url: width: 360 | image_tag: loading: 'lazy', alt: combo_perfume.title }}
+                    {% endif %}
+                    <span>Perfume</span>
+                  </a>
+                  <a href="{{ combo_splash.url }}" class="pe-cart-combo-shot pe-cart-combo-shot--splash" aria-label="Ver {{ combo_splash.title }}">
+                    {% if combo_splash.featured_image %}
+                      {{ combo_splash.featured_image | image_url: width: 360 | image_tag: loading: 'lazy', alt: combo_splash.title }}
+                    {% endif %}
+                    <span>Body Splash</span>
+                  </a>
+                </div>
+              {% else %}
+                <a class="pe-cart-item__media" href="{{ item.url }}" aria-label="Ver {{ item.product.title }}">
+                  {% if item.image %}
+                    {{ item.image | image_url: width: 520 | image_tag: loading: 'lazy', alt: item.product.title }}
+                  {% endif %}
+                </a>
+              {% endif %}
 
               <div class="pe-cart-item__content">
                 <div class="pe-cart-item__top">
                   <div>
                     <div class="eyebrow">{{ item.product.vendor }}</div>
-                    <h3><a href="{{ item.url }}">{{ item.product.title }}</a></h3>
-                    {% unless item.variant.title == 'Default Title' %}
-                      <span class="pe-cart-item__variant">{{ item.variant.title }}</span>
-                    {% endunless %}
+                    {% if is_combo and combo_perfume != blank and combo_splash != blank %}
+                      <h3><a href="{{ combo_perfume.url }}">{{ combo_perfume.title }} · Perfume + Body Splash</a></h3>
+                      <span class="pe-cart-item__variant pe-cart-item__variant--combo">2 produtos · 100 ml cada</span>
+                    {% else %}
+                      <h3><a href="{{ item.url }}">{{ item.product.title }}</a></h3>
+                      {% unless item.variant.title == 'Default Title' %}
+                        <span class="pe-cart-item__variant">{{ item.variant.title }}</span>
+                      {% endunless %}
+                    {% endif %}
                   </div>
                   <strong class="pe-cart-item__line-price">{{ item.final_line_price | money }}</strong>
                 </div>
 
-                {% if item.original_line_price > item.final_line_price %}
+                {% if is_combo %}
+                  <div class="pe-cart-combo-saving">
+                    <s>R$ 139,80</s>
+                    <span>Combo Pure · você economiza R$ 19,80</span>
+                  </div>
+                {% elsif item.original_line_price > item.final_line_price %}
                   <div class="pe-cart-item__discount">
                     <s>{{ item.original_line_price | money }}</s>
                     <span>Desconto aplicado</span>
@@ -110,14 +149,22 @@
   .pe-cart-item{display:grid!important;grid-template-columns:132px minmax(0,1fr)!important;gap:22px!important;padding:22px 0!important;border-top:0!important;border-bottom:1px solid rgba(17,17,17,.10);align-items:stretch}
   .pe-cart-item:first-child{padding-top:0!important}
   .pe-cart-item__media{display:block;width:132px;height:132px;overflow:hidden;background:#ebe5da;border:1px solid rgba(17,17,17,.06)}
-  .pe-cart-item__media img,.pe-cart-item img{display:block!important;width:132px!important;height:132px!important;max-width:none!important;aspect-ratio:1/1!important;object-fit:cover!important;object-position:center!important}
+  .pe-cart-item__media:not(.pe-cart-item__media--combo)>img{display:block!important;width:132px!important;height:132px!important;max-width:none!important;aspect-ratio:1/1!important;object-fit:cover!important;object-position:center!important}
+
+  .pe-cart-item__media--combo{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#ded6c9;position:relative}
+  .pe-cart-combo-shot{position:relative;display:block;min-width:0;height:132px;overflow:hidden;background:#eee7dc}
+  .pe-cart-combo-shot img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important}
+  .pe-cart-combo-shot span{position:absolute;left:5px;right:5px;bottom:5px;padding:4px 3px;background:rgba(17,17,17,.78);color:#fff;text-align:center;font-size:6px;line-height:1;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;backdrop-filter:blur(4px)}
+
   .pe-cart-item__content{min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:18px}
   .pe-cart-item__top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
   .pe-cart-item__top h3{font-size:17px;line-height:1.15;margin:7px 0 5px;letter-spacing:-.01em}
   .pe-cart-item__variant{font-size:11px;color:var(--pe-muted)}
+  .pe-cart-item__variant--combo{font-size:9px;text-transform:uppercase;letter-spacing:.08em}
   .pe-cart-item__line-price{font-size:16px;white-space:nowrap;font-weight:600}
-  .pe-cart-item__discount{display:flex;align-items:center;gap:9px;font-size:10px;color:#80643a}
-  .pe-cart-item__discount s{color:var(--pe-muted)}
+  .pe-cart-item__discount,.pe-cart-combo-saving{display:flex;align-items:center;gap:9px;font-size:10px;color:#80643a}
+  .pe-cart-item__discount s,.pe-cart-combo-saving s{color:var(--pe-muted)}
+  .pe-cart-combo-saving span{font-weight:600}
   .pe-cart-item__bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
   .pe-cart-qty{display:flex;flex-direction:column;gap:7px}
   .pe-cart-qty__label{font-size:8px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
@@ -157,11 +204,14 @@
     .pe-cart__count{font-size:9px}
     .pe-cart-item{grid-template-columns:92px minmax(0,1fr)!important;gap:13px!important;padding:16px 0!important}
     .pe-cart-item__media{width:92px!important;height:92px!important}
-    .pe-cart-item__media img,.pe-cart-item img{width:92px!important;height:92px!important;aspect-ratio:1/1!important;object-fit:cover!important}
+    .pe-cart-item__media:not(.pe-cart-item__media--combo)>img{width:92px!important;height:92px!important;aspect-ratio:1/1!important;object-fit:cover!important}
+    .pe-cart-combo-shot{height:92px}
+    .pe-cart-combo-shot span{font-size:5px;left:3px;right:3px;bottom:3px;padding:3px 2px}
     .pe-cart-item__content{gap:10px}
     .pe-cart-item__top{gap:10px}
     .pe-cart-item__top h3{font-size:13px;margin-top:5px}
     .pe-cart-item__line-price{font-size:12px}
+    .pe-cart-combo-saving{font-size:8px;gap:6px;flex-wrap:wrap}
     .pe-cart-item__bottom{align-items:flex-start;flex-direction:column;gap:10px}
     .pe-cart-item__actions{font-size:9px;gap:10px}
     .pe-cart-qty__control{grid-template-columns:32px 38px 32px;height:36px}
