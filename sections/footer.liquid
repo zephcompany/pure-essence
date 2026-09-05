@@ -8,7 +8,6 @@
         <div class="trust-suite__copy"><strong>Entrega nacional</strong><span>Envio para todo o Brasil</span></div>
         <span class="trust-suite__number">01</span>
       </div>
-
       <div class="trust-suite__item">
         <div class="trust-suite__icon">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-width="1.35"/><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.35"/><path d="m9.5 15 1.7 1.7 3.7-4" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -16,7 +15,6 @@
         <div class="trust-suite__copy"><strong>Compra segura</strong><span>Pagamento protegido pela Shopify</span></div>
         <span class="trust-suite__number">02</span>
       </div>
-
       <div class="trust-suite__item">
         <div class="trust-suite__icon trust-suite__icon--mark">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1.3 3.1 3.8 5.6 7 7-3.2 1.4-5.7 3.9-7 7-1.3-3.1-3.8-5.6-7-7 3.2-1.4 5.7-3.9 7-7Z" fill="none" stroke="currentColor" stroke-width="1.35"/><path d="M18.5 3.5v3m-1.5-1.5h3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
@@ -29,7 +27,7 @@
     <div class="footer-grid footer-grid--rich">
       <div class="footer-main">
         <img class="footer-logo" src="{{ 'pure-essence-logo.webp' | asset_url }}" alt="Pure Essence & Co" width="360" height="255" loading="lazy">
-        <p>Fragrâncias sofisticadas que nasceram em Dubai e chegam ao Brasil para transformar sensações em memórias.</p>
+        <p>Perfumes e Body Splashes inspirados pela sofisticação de Dubai, criados para transformar sensações em memórias.</p>
         {% if section.settings.instagram != blank %}
           <a class="footer-social" href="{{ section.settings.instagram }}" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="17.2" cy="6.9" r=".8" fill="currentColor"/></svg>
@@ -41,7 +39,8 @@
       <div>
         <h3>Descubra</h3>
         <div class="footer-links">
-          <a href="{{ routes.all_products_collection_url }}">Todos os perfumes</a>
+          <a href="/collections/perfumes">Perfumes</a>
+          <a href="/collections/all/body-splash">Body Splash</a>
           <a href="{{ routes.root_url }}#essencia">Nossa essência</a>
           <a href="{{ routes.root_url }}#dubai-brasil">Dubai → Brasil</a>
           <a href="{{ routes.search_url }}">Buscar</a>
