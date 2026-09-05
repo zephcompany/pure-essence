@@ -1,2 +1,189 @@
-<section class="cart-page"><div class="page-width"><h1>Sua sacola</h1>{% if cart.item_count > 0 %}<form action="{{ routes.cart_url }}" method="post">{% for item in cart.items %}<div class="cart-item"><a href="{{ item.url }}">{% if item.image %}{{ item.image | image_url: width: 360 | image_tag: loading: 'lazy', alt: item.product.title }}{% endif %}</a><div><div class="eyebrow">{{ item.product.vendor }}</div><h3><a href="{{ item.url }}">{{ item.product.title }}</a></h3><div>{{ item.final_price | money }}</div><label for="updates_{{ item.key }}" class="eyebrow" style="display:block;margin:14px 0 6px">Quantidade</label><input id="updates_{{ item.key }}" name="updates[]" type="number" min="0" value="{{ item.quantity }}"></div><div>{{ item.final_line_price | money }}</div></div>{% endfor %}<div class="cart-footer"><div class="cart-summary"><div class="cart-summary__total"><span>Total</span><strong>{{ cart.total_price | money }}</strong></div><button class="button button--outline" type="submit" name="update" style="width:100%;margin-bottom:8px">Atualizar sacola</button><button class="button" type="submit" name="checkout">Finalizar compra</button></div></div></form>{% else %}<div class="empty-state">Sua sacola está vazia. <a href="{{ routes.all_products_collection_url }}"><u>Conheça as fragrâncias</u></a>.</div>{% endif %}</div></section>
+<section class="cart-page pe-cart">
+  <div class="page-width">
+    <div class="pe-cart__head">
+      <div>
+        <div class="eyebrow">PURE ESSENCE & CO</div>
+        <h1>Sua sacola</h1>
+      </div>
+      {% if cart.item_count > 0 %}
+        <span class="pe-cart__count">{{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}itens{% endif %}</span>
+      {% endif %}
+    </div>
+
+    {% if cart.item_count > 0 %}
+      <form action="{{ routes.cart_url }}" method="post" class="pe-cart__form">
+        <div class="pe-cart__items">
+          {% for item in cart.items %}
+            <article class="pe-cart-item">
+              <a class="pe-cart-item__media" href="{{ item.url }}" aria-label="Ver {{ item.product.title }}">
+                {% if item.image %}
+                  {{ item.image | image_url: width: 520 | image_tag: loading: 'lazy', alt: item.product.title }}
+                {% endif %}
+              </a>
+
+              <div class="pe-cart-item__content">
+                <div class="pe-cart-item__top">
+                  <div>
+                    <div class="eyebrow">{{ item.product.vendor }}</div>
+                    <h3><a href="{{ item.url }}">{{ item.product.title }}</a></h3>
+                    {% unless item.variant.title == 'Default Title' %}
+                      <span class="pe-cart-item__variant">{{ item.variant.title }}</span>
+                    {% endunless %}
+                  </div>
+                  <strong class="pe-cart-item__line-price">{{ item.final_line_price | money }}</strong>
+                </div>
+
+                {% if item.original_line_price > item.final_line_price %}
+                  <div class="pe-cart-item__discount">
+                    <s>{{ item.original_line_price | money }}</s>
+                    <span>Desconto aplicado</span>
+                  </div>
+                {% endif %}
+
+                <div class="pe-cart-item__bottom">
+                  <div class="pe-cart-qty">
+                    <span class="pe-cart-qty__label">Quantidade</span>
+                    <div class="pe-cart-qty__control">
+                      <button type="button" data-cart-minus aria-label="Diminuir quantidade">−</button>
+                      <input id="updates_{{ item.key }}" name="updates[]" type="number" min="0" value="{{ item.quantity }}" inputmode="numeric" aria-label="Quantidade de {{ item.product.title }}">
+                      <button type="button" data-cart-plus aria-label="Aumentar quantidade">+</button>
+                    </div>
+                  </div>
+
+                  <div class="pe-cart-item__actions">
+                    <span>{{ item.final_price | money }} / un.</span>
+                    <a href="{{ item.url_to_remove }}">Remover</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+
+          <button class="pe-cart__update" type="submit" name="update">Atualizar sacola</button>
+        </div>
+
+        <aside class="pe-cart-summary">
+          <div class="pe-cart-summary__eyebrow">RESUMO DO PEDIDO</div>
+          <div class="pe-cart-summary__row">
+            <span>Subtotal</span>
+            <strong>{{ cart.items_subtotal_price | money }}</strong>
+          </div>
+          {% if cart.total_discount > 0 %}
+            <div class="pe-cart-summary__row pe-cart-summary__row--discount">
+              <span>Descontos</span>
+              <strong>− {{ cart.total_discount | money }}</strong>
+            </div>
+          {% endif %}
+          <div class="pe-cart-summary__shipping">
+            <span>Frete</span>
+            <small>Calculado no checkout após informar seu CEP.</small>
+          </div>
+          <div class="pe-cart-summary__total">
+            <span>Total</span>
+            <strong>{{ cart.total_price | money }}</strong>
+          </div>
+          <button class="pe-cart-summary__checkout" type="submit" name="checkout">Finalizar compra</button>
+          <div class="pe-cart-summary__trust">
+            <span>Compra segura</span>
+            <span>Pagamento protegido pela Shopify</span>
+          </div>
+          <a class="pe-cart-summary__continue" href="/collections/all">← Continuar comprando</a>
+        </aside>
+      </form>
+    {% else %}
+      <div class="pe-cart-empty">
+        <p>Sua sacola está vazia.</p>
+        <a class="button" href="{{ routes.all_products_collection_url }}">Conhecer as fragrâncias</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .pe-cart{padding:70px 0 100px}
+  .pe-cart__head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:32px;border-bottom:1px solid rgba(17,17,17,.11)}
+  .pe-cart__head h1{margin:8px 0 0!important;line-height:.95}
+  .pe-cart__count{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--pe-muted)}
+  .pe-cart__form{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:56px;align-items:start;padding-top:26px}
+  .pe-cart__items{min-width:0}
+
+  .pe-cart-item{display:grid!important;grid-template-columns:132px minmax(0,1fr)!important;gap:22px!important;padding:22px 0!important;border-top:0!important;border-bottom:1px solid rgba(17,17,17,.10);align-items:stretch}
+  .pe-cart-item:first-child{padding-top:0!important}
+  .pe-cart-item__media{display:block;width:132px;height:132px;overflow:hidden;background:#ebe5da;border:1px solid rgba(17,17,17,.06)}
+  .pe-cart-item__media img,.pe-cart-item img{display:block!important;width:132px!important;height:132px!important;max-width:none!important;aspect-ratio:1/1!important;object-fit:cover!important;object-position:center!important}
+  .pe-cart-item__content{min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+  .pe-cart-item__top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+  .pe-cart-item__top h3{font-size:17px;line-height:1.15;margin:7px 0 5px;letter-spacing:-.01em}
+  .pe-cart-item__variant{font-size:11px;color:var(--pe-muted)}
+  .pe-cart-item__line-price{font-size:16px;white-space:nowrap;font-weight:600}
+  .pe-cart-item__discount{display:flex;align-items:center;gap:9px;font-size:10px;color:#80643a}
+  .pe-cart-item__discount s{color:var(--pe-muted)}
+  .pe-cart-item__bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+  .pe-cart-qty{display:flex;flex-direction:column;gap:7px}
+  .pe-cart-qty__label{font-size:8px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+  .pe-cart-qty__control{display:grid;grid-template-columns:36px 42px 36px;height:38px;border:1px solid rgba(17,17,17,.16);background:rgba(255,255,255,.26)}
+  .pe-cart-qty__control button{border:0;background:transparent;font-size:16px;padding:0}
+  .pe-cart-qty__control input,.pe-cart-item input{width:42px!important;height:36px!important;border:0!important;background:transparent!important;padding:0!important;text-align:center;-moz-appearance:textfield}
+  .pe-cart-qty__control input::-webkit-outer-spin-button,.pe-cart-qty__control input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .pe-cart-item__actions{display:flex;align-items:center;gap:15px;font-size:10px;color:var(--pe-muted)}
+  .pe-cart-item__actions a{color:#111;text-decoration:underline;text-underline-offset:3px}
+  .pe-cart__update{margin-top:14px;border:0;background:transparent;padding:8px 0;font-size:9px;letter-spacing:.13em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;color:var(--pe-muted)}
+
+  .pe-cart-summary{position:sticky;top:126px;padding:24px;background:#ece8e1;border:1px solid rgba(17,17,17,.08)}
+  .pe-cart-summary__eyebrow{font-size:8px;font-weight:700;letter-spacing:.17em;margin-bottom:22px}
+  .pe-cart-summary__row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:9px 0;font-size:12px}
+  .pe-cart-summary__row strong{font-size:12px}
+  .pe-cart-summary__row--discount{color:#80643a}
+  .pe-cart-summary__shipping{display:flex;flex-direction:column;gap:5px;padding:14px 0 18px;border-bottom:1px solid rgba(17,17,17,.10);font-size:12px}
+  .pe-cart-summary__shipping small{font-size:9px;line-height:1.45;color:var(--pe-muted)}
+  .pe-cart-summary__total{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:20px 0}
+  .pe-cart-summary__total span{font-size:15px}
+  .pe-cart-summary__total strong{font-size:23px;letter-spacing:-.02em}
+  .pe-cart-summary__checkout{width:100%;min-height:52px;border:1px solid #111;background:#111;color:#fff;text-transform:uppercase;letter-spacing:.13em;font-size:10px;transition:.2s}
+  .pe-cart-summary__checkout:hover{opacity:.86}
+  .pe-cart-summary__trust{display:flex;justify-content:space-between;gap:12px;padding:14px 0 0;font-size:8px;color:var(--pe-muted)}
+  .pe-cart-summary__continue{display:inline-block;margin-top:20px;font-size:9px;text-decoration:underline;text-underline-offset:4px;color:var(--pe-muted)}
+  .pe-cart-empty{padding:70px 0;text-align:center}.pe-cart-empty p{font-family:Georgia,'Times New Roman',serif;font-size:30px;margin:0 0 24px}
+
+  @media(max-width:989px){
+    .pe-cart{padding:46px 0 70px!important}
+    .pe-cart__head{padding-bottom:22px}
+    .pe-cart__form{grid-template-columns:1fr;gap:30px;padding-top:18px}
+    .pe-cart-summary{position:static;top:auto;width:100%!important}
+  }
+
+  @media(max-width:640px){
+    .pe-cart__head{align-items:flex-start;flex-direction:column;gap:9px}
+    .pe-cart__count{font-size:9px}
+    .pe-cart-item{grid-template-columns:92px minmax(0,1fr)!important;gap:13px!important;padding:16px 0!important}
+    .pe-cart-item__media{width:92px!important;height:92px!important}
+    .pe-cart-item__media img,.pe-cart-item img{width:92px!important;height:92px!important;aspect-ratio:1/1!important;object-fit:cover!important}
+    .pe-cart-item__content{gap:10px}
+    .pe-cart-item__top{gap:10px}
+    .pe-cart-item__top h3{font-size:13px;margin-top:5px}
+    .pe-cart-item__line-price{font-size:12px}
+    .pe-cart-item__bottom{align-items:flex-start;flex-direction:column;gap:10px}
+    .pe-cart-item__actions{font-size:9px;gap:10px}
+    .pe-cart-qty__control{grid-template-columns:32px 38px 32px;height:36px}
+    .pe-cart-qty__control input,.pe-cart-item input{width:38px!important;height:34px!important;font-size:14px!important}
+    .pe-cart-summary{padding:20px 16px}
+    .pe-cart-summary__total strong{font-size:21px}
+    .pe-cart-summary__trust{flex-direction:column;gap:3px}
+  }
+</style>
+
+<script>
+  (() => {
+    document.querySelectorAll('.pe-cart-qty__control').forEach((control) => {
+      const input = control.querySelector('input');
+      control.querySelector('[data-cart-minus]')?.addEventListener('click', () => {
+        input.value = Math.max(0, Number(input.value || 0) - 1);
+      });
+      control.querySelector('[data-cart-plus]')?.addEventListener('click', () => {
+        input.value = Number(input.value || 0) + 1;
+      });
+    });
+  })();
+</script>
+
 {% schema %}{"name":"Carrinho principal","settings":[]}{% endschema %}
