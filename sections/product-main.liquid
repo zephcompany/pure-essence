@@ -2,13 +2,28 @@
 {% if product.type == 'Body Splash' or product.tags contains 'Body Splash' %}{% assign is_body_splash = true %}{% endif %}
 {% assign is_perfume = false %}
 {% if product.type == 'Perfume' %}{% assign is_perfume = true %}{% endif %}
-{% assign matching_splash = blank %}
+
+{% assign base_handle = product.handle %}
+{% assign matching_pair = blank %}
 {% assign matching_combo = blank %}
-{% if is_perfume %}
-  {% assign splash_handle = product.handle | append: '-body-splash' %}
-  {% assign combo_handle = product.handle | append: '-combo' %}
-  {% assign matching_splash = all_products[splash_handle] %}
+{% assign matching_pair_type = '' %}
+{% assign bundle_heading = '' %}
+
+{% if is_body_splash %}
+  {% assign base_handle = product.handle | replace: '-body-splash', '' %}
+  {% assign perfume_handle = base_handle %}
+  {% assign combo_handle = base_handle | append: '-combo' %}
+  {% assign matching_pair = all_products[perfume_handle] %}
   {% assign matching_combo = all_products[combo_handle] %}
+  {% assign matching_pair_type = 'Perfume' %}
+  {% assign bundle_heading = 'Leve o Perfume junto' %}
+{% elsif is_perfume %}
+  {% assign splash_handle = base_handle | append: '-body-splash' %}
+  {% assign combo_handle = base_handle | append: '-combo' %}
+  {% assign matching_pair = all_products[splash_handle] %}
+  {% assign matching_combo = all_products[combo_handle] %}
+  {% assign matching_pair_type = 'Body Splash' %}
+  {% assign bundle_heading = 'Leve o Body Splash junto' %}
 {% endif %}
 
 <section class="pe-product">
@@ -55,28 +70,28 @@
         <div class="pe-shipping-box"><div class="pe-shipping-box__head"><strong>MEIOS DE ENVIO</strong><span>+</span></div><div class="pe-shipping-box__notice">Envio para todo o Brasil</div><p>Prazo e valor do frete são calculados no checkout após informar seu CEP.</p></div>
         <div class="pe-product-mini-trust"><span>Compra segura</span><span>100 ml</span><span>Inspirada em Dubai</span></div>
 
-        {% if is_perfume and matching_splash != blank and matching_combo != blank and matching_combo.available %}
+        {% if matching_pair != blank and matching_combo != blank %}
           <div class="pe-bundle-card pe-mini-bundle">
             <div class="pe-mini-bundle__top">
               <span class="pe-mini-bundle__badge">PROMOÇÃO</span>
-              <h3>Leve o Body Splash junto</h3>
-              <p>Combine esta fragrância com o Body Splash da mesma essência e aproveite o valor especial do combo.</p>
+              <h3>{{ bundle_heading }}</h3>
+              <p>Complete a mesma fragrância com o {{ matching_pair_type }} correspondente e leve o duo Pure Essence por um valor especial.</p>
             </div>
 
             <div class="pe-mini-bundle__product">
-              <a href="{{ matching_splash.url }}" class="pe-mini-bundle__media">
-                {% if matching_splash.featured_image %}{{ matching_splash.featured_image | image_url: width: 260 | image_tag: loading: 'lazy', alt: matching_splash.title }}{% endif %}
+              <a href="{{ matching_pair.url }}" class="pe-mini-bundle__media">
+                {% if matching_pair.featured_image %}{{ matching_pair.featured_image | image_url: width: 260 | image_tag: loading: 'lazy', alt: matching_pair.title }}{% endif %}
               </a>
               <div class="pe-mini-bundle__info">
-                <a href="{{ matching_splash.url }}" class="pe-mini-bundle__name">{{ matching_splash.title }}</a>
-                <span class="pe-mini-bundle__subtitle">Body Splash · 100 ml</span>
+                <a href="{{ matching_pair.url }}" class="pe-mini-bundle__name">{{ matching_pair.title }}</a>
+                <span class="pe-mini-bundle__subtitle">{{ matching_pair_type }} · 100 ml</span>
                 <div class="pe-mini-bundle__prices"><s>R$ 139,80</s><strong>{{ matching_combo.price | money }}</strong></div>
                 <span class="pe-mini-bundle__save">Economize R$ 19,80</span>
               </div>
             </div>
 
-            <button class="pe-mini-bundle__button" type="button" data-bundle-add data-bundle-variant="{{ matching_combo.selected_or_first_available_variant.id }}">
-              <span>Levar Perfume + Body Splash</span><span>→</span>
+            <button class="pe-mini-bundle__button" type="button" data-bundle-add data-bundle-variant="{{ matching_combo.selected_or_first_available_variant.id }}" {% unless matching_combo.selected_or_first_available_variant.available %}disabled{% endunless %}>
+              <span>{% if matching_combo.selected_or_first_available_variant.available %}Levar Perfume + Body Splash{% else %}Combo indisponível{% endif %}</span><span>→</span>
             </button>
             <small>1 Perfume 100 ml + 1 Body Splash 100 ml da mesma fragrância.</small>
           </div>
