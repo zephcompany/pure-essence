@@ -1,79 +1,17 @@
 <footer class="footer">
   <div class="page-width">
     <div class="trust-suite">
-      <div class="trust-suite__item">
-        <div class="trust-suite__icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3V7Zm11 3h3l4 4v2h-7v-6Z" fill="none" stroke="currentColor" stroke-width="1.35"/><circle cx="7" cy="18" r="1.5" fill="none" stroke="currentColor" stroke-width="1.35"/><circle cx="17" cy="18" r="1.5" fill="none" stroke="currentColor" stroke-width="1.35"/></svg>
-        </div>
-        <div class="trust-suite__copy"><strong>Entrega nacional</strong><span>Envio para todo o Brasil</span></div>
-        <span class="trust-suite__number">01</span>
-      </div>
-      <div class="trust-suite__item">
-        <div class="trust-suite__icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-width="1.35"/><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.35"/><path d="m9.5 15 1.7 1.7 3.7-4" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="trust-suite__copy"><strong>Compra segura</strong><span>Pagamento protegido pela Shopify</span></div>
-        <span class="trust-suite__number">02</span>
-      </div>
-      <div class="trust-suite__item">
-        <div class="trust-suite__icon trust-suite__icon--mark">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1.3 3.1 3.8 5.6 7 7-3.2 1.4-5.7 3.9-7 7-1.3-3.1-3.8-5.6-7-7 3.2-1.4 5.7-3.9 7-7Z" fill="none" stroke="currentColor" stroke-width="1.35"/><path d="M18.5 3.5v3m-1.5-1.5h3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        </div>
-        <div class="trust-suite__copy"><strong>Origem internacional</strong><span>Essência inspirada em Dubai</span></div>
-        <span class="trust-suite__number">03</span>
-      </div>
+      <div class="trust-suite__item"><div class="trust-suite__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3V7Zm11 3h3l4 4v2h-7v-6Z" fill="none" stroke="currentColor" stroke-width="1.35"/><circle cx="7" cy="18" r="1.5" fill="none" stroke="currentColor" stroke-width="1.35"/><circle cx="17" cy="18" r="1.5" fill="none" stroke="currentColor" stroke-width="1.35"/></svg></div><div class="trust-suite__copy"><strong>Entrega nacional</strong><span>Envio para todo o Brasil</span></div><span class="trust-suite__number">01</span></div>
+      <div class="trust-suite__item"><div class="trust-suite__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-width="1.35"/><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.35"/><path d="m9.5 15 1.7 1.7 3.7-4" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="trust-suite__copy"><strong>Compra segura</strong><span>Pagamento protegido pela Shopify</span></div><span class="trust-suite__number">02</span></div>
+      <div class="trust-suite__item"><div class="trust-suite__icon trust-suite__icon--mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1.3 3.1 3.8 5.6 7 7-3.2 1.4-5.7 3.9-7 7-1.3-3.1-3.8-5.6-7-7 3.2-1.4 5.7-3.9 7-7Z" fill="none" stroke="currentColor" stroke-width="1.35"/><path d="M18.5 3.5v3m-1.5-1.5h3" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div><div class="trust-suite__copy"><strong>Origem internacional</strong><span>Essência inspirada em Dubai</span></div><span class="trust-suite__number">03</span></div>
     </div>
-
     <div class="footer-grid footer-grid--rich">
-      <div class="footer-main">
-        <img class="footer-logo" src="{{ 'pure-essence-logo.webp' | asset_url }}" alt="Pure Essence & Co" width="360" height="255" loading="lazy">
-        <p>Perfumes e Body Splashes inspirados pela sofisticação de Dubai, criados para transformar sensações em memórias.</p>
-        {% if section.settings.instagram != blank %}
-          <a class="footer-social" href="{{ section.settings.instagram }}" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="17.2" cy="6.9" r=".8" fill="currentColor"/></svg>
-            <span>Instagram</span>
-          </a>
-        {% endif %}
-      </div>
-
-      <div>
-        <h3>Descubra</h3>
-        <div class="footer-links">
-          <a href="/collections/perfumes">Perfumes</a>
-          <a href="/collections/all/body-splash">Body Splash</a>
-          <a href="{{ routes.root_url }}#essencia">Nossa essência</a>
-          <a href="{{ routes.root_url }}#dubai-brasil">Dubai → Brasil</a>
-          <a href="{{ routes.search_url }}">Buscar</a>
-        </div>
-      </div>
-
-      <div>
-        <h3>Atendimento</h3>
-        <div class="footer-links">
-          {% if shop.refund_policy != blank %}<a href="{{ shop.refund_policy.url }}">Trocas e devoluções</a>{% endif %}
-          {% if shop.shipping_policy != blank %}<a href="{{ shop.shipping_policy.url }}">Envios</a>{% endif %}
-          {% if shop.privacy_policy != blank %}<a href="{{ shop.privacy_policy.url }}">Privacidade</a>{% endif %}
-          {% if shop.terms_of_service != blank %}<a href="{{ shop.terms_of_service.url }}">Termos</a>{% endif %}
-        </div>
-      </div>
-
-      <div class="footer-seal">
-        <img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="180" height="201" loading="lazy">
-        <span>De Dubai<br>para o Brasil</span>
-      </div>
+      <div class="footer-main"><img class="footer-logo" src="{{ 'pure-essence-logo.webp' | asset_url }}" alt="Pure Essence & Co" width="360" height="255" loading="lazy"><p>Perfumes e Body Splashes inspirados pela sofisticação de Dubai, criados para transformar sensações em memórias.</p>{% if section.settings.instagram != blank %}<a class="footer-social" href="{{ section.settings.instagram }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="17.2" cy="6.9" r=".8" fill="currentColor"/></svg><span>Instagram</span></a>{% endif %}</div>
+      <div><h3>Descubra</h3><div class="footer-links"><a href="/collections/perfumes">Perfumes</a><a href="/collections/body-splash">Body Splash</a><a href="{{ routes.root_url }}#essencia">Nossa essência</a><a href="{{ routes.root_url }}#dubai-brasil">Dubai → Brasil</a><a href="{{ routes.search_url }}">Buscar</a></div></div>
+      <div><h3>Atendimento</h3><div class="footer-links">{% if shop.refund_policy != blank %}<a href="{{ shop.refund_policy.url }}">Trocas e devoluções</a>{% endif %}{% if shop.shipping_policy != blank %}<a href="{{ shop.shipping_policy.url }}">Envios</a>{% endif %}{% if shop.privacy_policy != blank %}<a href="{{ shop.privacy_policy.url }}">Privacidade</a>{% endif %}{% if shop.terms_of_service != blank %}<a href="{{ shop.terms_of_service.url }}">Termos</a>{% endif %}</div></div>
+      <div class="footer-seal"><img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="180" height="201" loading="lazy"><span>De Dubai<br>para o Brasil</span></div>
     </div>
-
-    <div class="footer-bottom">
-      <span>© {{ 'now' | date: '%Y' }} Pure Essence & Co. Todos os direitos reservados.</span>
-      <div class="footer-bottom__badges"><span>100 ML</span><span>DUBAI → BRASIL</span><span>SHOPIFY SECURE</span></div>
-    </div>
+    <div class="footer-bottom"><span>© {{ 'now' | date: '%Y' }} Pure Essence & Co. Todos os direitos reservados.</span><div class="footer-bottom__badges"><span>100 ML</span><span>DUBAI → BRASIL</span><span>SHOPIFY SECURE</span></div></div>
   </div>
 </footer>
-{% schema %}
-{
-  "name":"Footer",
-  "settings":[
-    {"type":"url","id":"instagram","label":"Instagram"}
-  ]
-}
-{% endschema %}
+{% schema %}{"name":"Footer","settings":[{"type":"url","id":"instagram","label":"Instagram"}]}{% endschema %}
