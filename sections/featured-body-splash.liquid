@@ -1,0 +1,44 @@
+{% assign all_store_products = collections['all'].products %}
+{% assign splash_count = 0 %}
+{% for product_item in all_store_products %}
+  {% if product_item.type == 'Body Splash' or product_item.tags contains 'Body Splash' %}
+    {% assign splash_count = splash_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+{% if splash_count > 0 %}
+<section class="section body-splash-section" id="body-splash">
+  <div class="page-width">
+    <div class="section-head section-head--rich">
+      <div>
+        <div class="eyebrow">PURE ESSENCE · BODY SPLASH 100 ML</div>
+        <h2>A mesma essência, em uma versão <span class="text-accent">mais leve.</span></h2>
+        <p class="section-intro">Body Splashes inspirados nas fragrâncias Pure Essence para reaplicar ao longo do dia, combinar com seu perfume e prolongar seu ritual.</p>
+      </div>
+      <a class="section-link" href="/collections/all/body-splash">
+        <span>Ver Body Splash</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="product-grid body-splash-grid">
+      {% assign shown = 0 %}
+      {% for product_item in all_store_products %}
+        {% if product_item.type == 'Body Splash' or product_item.tags contains 'Body Splash' %}
+          {% render 'product-card', product: product_item %}
+          {% assign shown = shown | plus: 1 %}
+          {% if shown >= 7 %}{% break %}{% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% schema %}
+{
+  "name":"Vitrine Body Splash",
+  "settings":[],
+  "presets":[{"name":"Vitrine Body Splash"}]
+}
+{% endschema %}
