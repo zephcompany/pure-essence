@@ -1,8 +1,17 @@
+{% assign is_body_splash_view = false %}
+{% if current_tags contains 'Body Splash' or collection.handle == 'body-splash' %}{% assign is_body_splash_view = true %}{% endif %}
+{% assign is_perfume_view = false %}
+{% if collection.handle == 'perfumes' %}{% assign is_perfume_view = true %}{% endif %}
+
 <section>
   <div class="page-width collection-hero">
     <div class="eyebrow">PURE ESSENCE & CO</div>
-    <h1>{{ collection.title }}</h1>
-    {% if collection.description != blank %}<p>{{ collection.description }}</p>{% endif %}
+    <h1>{% if is_body_splash_view %}Body Splash{% elsif is_perfume_view %}Perfumes{% else %}{{ collection.title }}{% endif %}</h1>
+    {% if is_body_splash_view %}
+      <p>A mesma identidade olfativa das fragrâncias Pure Essence em uma versão mais leve para acompanhar e reaplicar ao longo do dia.</p>
+    {% elsif collection.description != blank %}
+      <p>{{ collection.description }}</p>
+    {% endif %}
   </div>
 
   <div class="page-width section" style="padding-top:24px">
@@ -12,23 +21,42 @@
       {% if collection.products_count > 0 %}
         {% paginate collection.products by 24 %}
           {% for product in collection.products %}
-            {% render 'product-card', product: product %}
-            {% assign shown = shown | plus: 1 %}
+            {% if is_body_splash_view %}
+              {% if product.type == 'Body Splash' or product.tags contains 'Body Splash' %}
+                {% render 'product-card', product: product %}
+                {% assign shown = shown | plus: 1 %}
+              {% endif %}
+            {% elsif is_perfume_view %}
+              {% if product.type == 'Perfume' %}
+                {% render 'product-card', product: product %}
+                {% assign shown = shown | plus: 1 %}
+              {% endif %}
+            {% else %}
+              {% render 'product-card', product: product %}
+              {% assign shown = shown | plus: 1 %}
+            {% endif %}
           {% endfor %}
           {{ paginate | default_pagination }}
         {% endpaginate %}
       {% else %}
         {% for product in collections['all'].products %}
-          {% if product.type == 'Perfume' or product.vendor == 'Pure Essence & Co' %}
-            {% render 'product-card', product: product %}
-            {% assign shown = shown | plus: 1 %}
+          {% if is_body_splash_view %}
+            {% if product.type == 'Body Splash' or product.tags contains 'Body Splash' %}
+              {% render 'product-card', product: product %}
+              {% assign shown = shown | plus: 1 %}
+            {% endif %}
+          {% elsif is_perfume_view %}
+            {% if product.type == 'Perfume' %}
+              {% render 'product-card', product: product %}
+              {% assign shown = shown | plus: 1 %}
+            {% endif %}
           {% endif %}
         {% endfor %}
       {% endif %}
     </div>
 
     {% if shown == 0 %}
-      <div class="empty-state">Os perfumes ainda não estão publicados no canal Loja virtual da Shopify.</div>
+      <div class="empty-state">{% if is_body_splash_view %}Os Body Splashes ainda não estão publicados no canal Loja virtual da Shopify.{% else %}Nenhum produto disponível no momento.{% endif %}</div>
     {% endif %}
   </div>
 </section>
