@@ -1,9 +1,23 @@
+{% assign is_body_splash = false %}
+{% if product.type == 'Body Splash' or product.tags contains 'Body Splash' %}{% assign is_body_splash = true %}{% endif %}
+{% assign is_perfume = false %}
+{% if product.type == 'Perfume' %}{% assign is_perfume = true %}{% endif %}
+{% assign matching_splash = blank %}
+{% if is_perfume %}
+  {% assign splash_handle = product.handle | append: '-body-splash' %}
+  {% assign matching_splash = all_products[splash_handle] %}
+{% endif %}
+
 <section class="pe-product">
   <div class="page-width">
     <nav class="pe-breadcrumb" aria-label="Breadcrumb">
       <a href="{{ routes.root_url }}">Home</a>
       <span>/</span>
-      <a href="/collections/perfumes">Perfumes</a>
+      {% if is_body_splash %}
+        <a href="/collections/all/body-splash">Body Splash</a>
+      {% else %}
+        <a href="/collections/perfumes">Perfumes</a>
+      {% endif %}
       <span>/</span>
       <span>{{ product.title }}</span>
     </nav>
@@ -23,7 +37,7 @@
           {% assign discount = saving | times: 100.0 | divided_by: product.compare_at_price_max | round %}
           <div class="pe-product-stage__badge">{{ discount }}% OFF</div>
         {% else %}
-          <div class="pe-product-stage__badge">100 ML</div>
+          <div class="pe-product-stage__badge">{% if is_body_splash %}BODY SPLASH{% else %}100 ML{% endif %}</div>
         {% endif %}
 
         {% if product.featured_image %}
@@ -34,7 +48,7 @@
       </div>
 
       <aside class="pe-product-buybox">
-        <div class="pe-product-origin">PURE ESSENCE & CO · DUBAI → BRASIL</div>
+        <div class="pe-product-origin">PURE ESSENCE & CO · {% if is_body_splash %}BODY SPLASH · {% endif %}DUBAI → BRASIL</div>
         <h1>{{ product.title }} <span>100 ml</span></h1>
 
         <div class="pe-product-pricing">
@@ -68,26 +82,47 @@
               <input type="number" name="quantity" min="1" value="1" inputmode="numeric" aria-label="Quantidade">
               <button type="button" data-qty-plus aria-label="Aumentar quantidade">+</button>
             </div>
-
             <button class="pe-product-add" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
               {% if product.selected_or_first_available_variant.available %}Comprar{% else %}Esgotado{% endif %}
             </button>
           </div>
         {% endform %}
 
-        <div class="pe-shipping-box">
-          <div class="pe-shipping-box__head">
-            <strong>MEIOS DE ENVIO</strong>
-            <span>+</span>
+        {% if is_perfume and matching_splash != blank and matching_splash.available %}
+          <div class="pe-bundle-card">
+            <div class="pe-bundle-card__top">
+              <div>
+                <span class="pe-bundle-kicker">COMBO PURE · MESMA ESSÊNCIA</span>
+                <strong>Complete seu ritual</strong>
+              </div>
+              <span class="pe-bundle-badge">LEVE JUNTO</span>
+            </div>
+            <div class="pe-bundle-product">
+              <a href="{{ matching_splash.url }}" class="pe-bundle-image">
+                {% if matching_splash.featured_image %}{{ matching_splash.featured_image | image_url: width: 260 | image_tag: loading: 'lazy', alt: matching_splash.title }}{% endif %}
+              </a>
+              <div class="pe-bundle-copy">
+                <a href="{{ matching_splash.url }}"><strong>{{ matching_splash.title }}</strong></a>
+                <span>Body Splash · 100 ml</span>
+                <b>{{ matching_splash.price | money }}</b>
+              </div>
+            </div>
+            <p>Perfume + Body Splash da mesma fragrância. Adicione os dois juntos para aproveitar a condição especial do combo.</p>
+            <button class="pe-bundle-add" type="button" data-bundle-add data-main-variant="{{ product.selected_or_first_available_variant.id }}" data-splash-variant="{{ matching_splash.selected_or_first_available_variant.id }}">
+              <span>Adicionar os dois</span><span>→</span>
+            </button>
+            <small>A condição promocional do combo é aplicada conforme a regra ativa na Shopify.</small>
           </div>
+        {% endif %}
+
+        <div class="pe-shipping-box">
+          <div class="pe-shipping-box__head"><strong>MEIOS DE ENVIO</strong><span>+</span></div>
           <div class="pe-shipping-box__notice">Envio para todo o Brasil</div>
           <p>Prazo e valor do frete são calculados no checkout após informar seu CEP.</p>
         </div>
 
         <div class="pe-product-mini-trust">
-          <span>Compra segura</span>
-          <span>100 ml</span>
-          <span>Inspirada em Dubai</span>
+          <span>Compra segura</span><span>100 ml</span><span>Inspirada em Dubai</span>
         </div>
       </aside>
     </div>
@@ -99,20 +134,29 @@
     <div class="pe-product-description-card">
       <div class="pe-product-description-card__head">
         <div>
-          <div class="eyebrow">PURE ESSENCE · 100 ML</div>
-          <h2>Conheça a fragrância</h2>
+          <div class="eyebrow">PURE ESSENCE · {% if is_body_splash %}BODY SPLASH{% else %}PERFUME{% endif %} · 100 ML</div>
+          <h2>{% if is_body_splash %}Conheça o Body Splash{% else %}Conheça a fragrância{% endif %}</h2>
         </div>
         <img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="120" height="134" loading="lazy">
       </div>
 
       <div class="pe-product-description-body">
-        {% render 'product-olfactory-profile', product: product %}
+        {% if is_body_splash %}
+          {% if product.description != blank %}
+            {{ product.description }}
+          {% else %}
+            <p><strong>{{ product.title }}</strong> é a versão Body Splash da fragrância Pure Essence, criada para uma perfumação mais leve e versátil ao longo do dia.</p>
+            <p>Use sozinho ou em conjunto com o perfume correspondente para criar um ritual completo de fragrância.</p>
+          {% endif %}
+        {% else %}
+          {% render 'product-olfactory-profile', product: product %}
+        {% endif %}
       </div>
 
       <div class="pe-product-facts">
         <div><span>01</span><strong>Volume</strong><small>100 ml</small></div>
-        <div><span>02</span><strong>Origem</strong><small>Dubai → Brasil</small></div>
-        <div><span>03</span><strong>Marca</strong><small>Pure Essence & Co</small></div>
+        <div><span>02</span><strong>Tipo</strong><small>{% if is_body_splash %}Body Splash{% else %}Perfume{% endif %}</small></div>
+        <div><span>03</span><strong>Origem</strong><small>Dubai → Brasil</small></div>
       </div>
     </div>
   </div>
@@ -124,10 +168,8 @@
       <div class="eyebrow">A ESSÊNCIA PURE</div>
       <h2>De <span class="text-accent">Dubai</span> para a sua presença.</h2>
     </div>
-    <p>A Pure Essence & Co nasceu da inspiração pelo luxo autêntico de Dubai e chega ao Brasil com fragrâncias sofisticadas, feitas para acompanhar momentos e deixar memória.</p>
-    <div class="pe-product-story__mark" aria-hidden="true">
-      <img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="180" height="201" loading="lazy">
-    </div>
+    <p>A Pure Essence & Co nasceu da inspiração pelo luxo autêntico de Dubai e chega ao Brasil com perfumes e Body Splashes sofisticados, feitos para acompanhar momentos e deixar memória.</p>
+    <div class="pe-product-story__mark" aria-hidden="true"><img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="180" height="201" loading="lazy"></div>
   </div>
 </section>
 
@@ -138,7 +180,7 @@
         <div class="eyebrow">DESCUBRA MAIS</div>
         <h2>Você também pode <span class="text-accent">gostar.</span></h2>
       </div>
-      <a href="/collections/perfumes">Ver todos</a>
+      <a href="{% if is_body_splash %}/collections/all/body-splash{% else %}/collections/perfumes{% endif %}">Ver todos</a>
     </div>
 
     <div class="product-grid pe-related-grid">
@@ -146,9 +188,14 @@
       {% for related_product in collections['all'].products %}
         {% if shown >= 4 %}{% break %}{% endif %}
         {% if related_product.handle != product.handle %}
-          {% if related_product.type == 'Perfume' or related_product.vendor == 'Pure Essence & Co' %}
-            {% render 'product-card', product: related_product %}
-            {% assign shown = shown | plus: 1 %}
+          {% if is_body_splash %}
+            {% if related_product.type == 'Body Splash' or related_product.tags contains 'Body Splash' %}
+              {% render 'product-card', product: related_product %}{% assign shown = shown | plus: 1 %}
+            {% endif %}
+          {% else %}
+            {% if related_product.type == 'Perfume' %}
+              {% render 'product-card', product: related_product %}{% assign shown = shown | plus: 1 %}
+            {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
@@ -166,18 +213,16 @@
 
     <div class="pe-faq__list">
       <details open>
-        <summary><span>01</span><strong>Os perfumes da Pure Essence têm boa fixação?</strong><b>+</b></summary>
-        <div class="pe-faq__answer">Sim. As fragrâncias Pure Essence & Co são desenvolvidas com matérias-primas selecionadas e concentração pensada para entregar boa performance e presença ao longo do uso. Como em qualquer perfume, fixação e projeção podem variar de acordo com pele, clima, quantidade aplicada e características individuais de cada fragrância.</div>
+        <summary><span>01</span><strong>As fragrâncias da Pure Essence têm boa performance?</strong><b>+</b></summary>
+        <div class="pe-faq__answer">Sim. Os perfumes Pure Essence são desenvolvidos para boa presença e duração, enquanto os Body Splashes oferecem uma perfumação propositalmente mais leve, ideal para reaplicação ao longo do dia. A performance pode variar de acordo com pele, clima e quantidade aplicada.</div>
       </details>
-
       <details>
         <summary><span>02</span><strong>Posso receber uma amostra antes de comprar?</strong><b>+</b></summary>
-        <div class="pe-faq__answer">No momento, não trabalhamos com envio de amostras antes da compra. Para ajudar na escolha, cada página apresenta classificação olfativa, notas de topo, coração e fundo, ocasiões de uso e a personalidade da fragrância. Em caso de necessidade de troca ou devolução, consulte a política vigente da Pure Essence & Co no site.</div>
+        <div class="pe-faq__answer">No momento, não trabalhamos com envio de amostras antes da compra. Para ajudar na escolha, as páginas dos perfumes apresentam perfil olfativo, notas e ocasiões de uso. Consulte também a política vigente de trocas e devoluções da Pure Essence & Co.</div>
       </details>
-
       <details>
         <summary><span>03</span><strong>Posso confiar na Pure Essence? Minha compra vai chegar?</strong><b>+</b></summary>
-        <div class="pe-faq__answer">A Pure Essence & Co é uma marca que nasce da sofisticação de Dubai e chega ao Brasil com uma proposta clara: tornar a alta perfumaria parte de momentos reais. As compras são realizadas pelo site oficial, com checkout protegido pela Shopify e acompanhamento do pedido após a confirmação. Nossa prioridade é oferecer uma experiência à altura da marca, da escolha da fragrância até a entrega.</div>
+        <div class="pe-faq__answer">A Pure Essence & Co nasce da inspiração pela sofisticação de Dubai e chega ao Brasil com uma experiência de compra realizada pelo site oficial, checkout protegido pela Shopify e acompanhamento do pedido após a confirmação.</div>
       </details>
     </div>
   </div>
@@ -209,6 +254,29 @@
 
     document.querySelector('[data-scroll-description]')?.addEventListener('click', () => {
       document.getElementById('ProductDescription-{{ section.id }}')?.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    document.querySelector('[data-bundle-add]')?.addEventListener('click', async (event) => {
+      const button = event.currentTarget;
+      const mainVariant = Number(button.dataset.mainVariant);
+      const splashVariant = Number(button.dataset.splashVariant);
+      if (!mainVariant || !splashVariant) return;
+      const original = button.innerHTML;
+      button.disabled = true;
+      button.innerHTML = '<span>Adicionando...</span>';
+      try {
+        const response = await fetch('{{ routes.cart_add_url }}.js', {
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body:JSON.stringify({items:[{id:mainVariant,quantity:1},{id:splashVariant,quantity:1}]})
+        });
+        if (!response.ok) throw new Error('bundle-add');
+        window.location.href = '{{ routes.cart_url }}';
+      } catch (error) {
+        button.disabled = false;
+        button.innerHTML = original;
+        alert('Não foi possível adicionar o combo. Tente novamente.');
+      }
     });
   })();
 </script>
