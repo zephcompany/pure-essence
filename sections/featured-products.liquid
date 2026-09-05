@@ -8,7 +8,7 @@
         <p class="section-intro">{{ section.settings.intro }}</p>
       </div>
       <a class="section-link" href="/collections/perfumes">
-        <span>Ver todos</span>
+        <span>Ver perfumes</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -16,7 +16,7 @@
     <div class="product-grid product-grid--home">
       {% assign shown = 0 %}
       {% for product_item in all_store_products %}
-        {% if product_item.type == 'Perfume' or product_item.vendor == 'Pure Essence & Co' %}
+        {% if product_item.type == 'Perfume' %}
           {% render 'product-card', product: product_item %}
           {% assign shown = shown | plus: 1 %}
           {% if shown >= 10 %}{% break %}{% endif %}
@@ -25,9 +25,7 @@
     </div>
 
     {% if shown == 0 %}
-      <div class="empty-state">
-        Os perfumes ainda não estão disponíveis no canal Loja virtual da Shopify.
-      </div>
+      <div class="empty-state">Os perfumes ainda não estão disponíveis no canal Loja virtual da Shopify.</div>
     {% endif %}
   </div>
 </section>
@@ -35,11 +33,11 @@
 {
   "name":"Vitrine de perfumes",
   "settings":[
-    {"type":"text","id":"eyebrow","label":"Texto pequeno","default":"PURE ESSENCE · 100 ML"},
+    {"type":"text","id":"eyebrow","label":"Texto pequeno","default":"PURE ESSENCE · PERFUMES 100 ML"},
     {"type":"text","id":"heading_before","label":"Título antes","default":"Fragrâncias que"},
     {"type":"text","id":"heading_highlight","label":"Destaque","default":"marcam"},
     {"type":"text","id":"heading_after","label":"Título depois","default":"presença."},
-    {"type":"textarea","id":"intro","label":"Texto de apoio","default":"Uma coleção criada para transformar presença em memória. Conheça as dez fragrâncias da Pure Essence & Co."}
+    {"type":"textarea","id":"intro","label":"Texto de apoio","default":"Perfumes criados para transformar presença em memória, inspirados pela sofisticação de Dubai."}
   ],
   "presets":[{"name":"Vitrine de perfumes"}]
 }
