@@ -71,35 +71,56 @@
         <div class="pe-product-mini-trust"><span>Compra segura</span><span>100 ml</span><span>Inspirada em Dubai</span></div>
 
         {% if matching_pair != blank and matching_combo != blank %}
-          <div class="pe-bundle-card pe-mini-bundle">
-            <div class="pe-mini-bundle__top">
-              <span class="pe-mini-bundle__badge">PROMOÇÃO</span>
-              <h3>{{ bundle_heading }}</h3>
-              <p>Complete a mesma fragrância com o {{ matching_pair_type }} correspondente e leve o duo Pure Essence por um valor especial.</p>
+          <div class="pe-mini-bundle-fixed" style="margin-top:18px;padding:16px;border:1px solid rgba(178,138,74,.32);background:#f7f2e8;border-radius:14px;box-sizing:border-box;width:100%;overflow:hidden;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;">
+              <div style="min-width:0;">
+                <span style="display:inline-flex;align-items:center;justify-content:center;padding:5px 8px;border-radius:999px;background:#111;color:#fff;font-size:7px;line-height:1;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;">PROMOÇÃO</span>
+                <h3 style="margin:0 0 5px;font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.05;font-weight:400;letter-spacing:-.03em;color:#111;">{{ bundle_heading }}</h3>
+                <p style="margin:0;font-size:9px;line-height:1.5;color:#6f685f;max-width:360px;">Complete a mesma fragrância com o {{ matching_pair_type }} correspondente e leve o duo Pure Essence por um valor especial.</p>
+              </div>
+              <span style="flex:0 0 auto;font-size:7px;letter-spacing:.09em;text-transform:uppercase;color:#8a6a2f;border:1px solid rgba(178,138,74,.32);padding:5px 7px;border-radius:999px;">COMBO</span>
             </div>
 
-            <div class="pe-mini-bundle__product">
-              <a href="{{ matching_pair.url }}" class="pe-mini-bundle__media">
-                {% if matching_pair.featured_image %}{{ matching_pair.featured_image | image_url: width: 260 | image_tag: loading: 'lazy', alt: matching_pair.title }}{% endif %}
+            <div style="display:grid;grid-template-columns:78px minmax(0,1fr);gap:12px;align-items:center;padding:12px 0;border-top:1px solid rgba(17,17,17,.08);border-bottom:1px solid rgba(17,17,17,.08);">
+              <a href="{{ matching_pair.url }}" style="display:block;width:78px;height:78px;border-radius:10px;overflow:hidden;background:#fff;text-decoration:none;">
+                {% if matching_pair.featured_image %}
+                  <img src="{{ matching_pair.featured_image | image_url: width: 240 }}" alt="{{ matching_pair.title | escape }}" loading="lazy" width="78" height="78" style="display:block!important;width:78px!important;height:78px!important;max-width:78px!important;min-width:78px!important;object-fit:cover!important;object-position:center!important;margin:0!important;border-radius:10px!important;">
+                {% endif %}
               </a>
-              <div class="pe-mini-bundle__info">
-                <a href="{{ matching_pair.url }}" class="pe-mini-bundle__name">{{ matching_pair.title }}</a>
-                <span class="pe-mini-bundle__subtitle">{{ matching_pair_type }} · 100 ml</span>
-                <div class="pe-mini-bundle__prices"><s>R$ 139,80</s><strong>{{ matching_combo.price | money }}</strong></div>
-                <span class="pe-mini-bundle__save">Economize R$ 19,80</span>
+
+              <div style="min-width:0;display:flex;flex-direction:column;align-items:flex-start;">
+                <a href="{{ matching_pair.url }}" style="display:block;margin:0 0 3px;color:#111;text-decoration:none;font-size:11px;line-height:1.25;font-weight:700;">{{ matching_pair.title }}</a>
+                <span style="font-size:8px;line-height:1.35;color:#777067;">{{ matching_pair_type }} · 100 ml</span>
+                <div style="display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-top:7px;">
+                  <s style="font-size:9px;color:#918981;">R$ 139,80</s>
+                  <strong style="font-size:20px;line-height:1;color:#111;">{{ matching_combo.price | money }}</strong>
+                </div>
+                <span style="display:block;margin-top:5px;font-size:7px;line-height:1.2;letter-spacing:.08em;text-transform:uppercase;color:#8a6a2f;font-weight:700;">Economize R$ 19,80</span>
               </div>
             </div>
 
-            <button class="pe-mini-bundle__button" type="button" data-bundle-add data-bundle-variant="{{ matching_combo.selected_or_first_available_variant.id }}" {% unless matching_combo.selected_or_first_available_variant.available %}disabled{% endunless %}>
+            <button type="button" data-bundle-add data-bundle-variant="{{ matching_combo.selected_or_first_available_variant.id }}" {% unless matching_combo.selected_or_first_available_variant.available %}disabled{% endunless %} style="appearance:none;-webkit-appearance:none;width:100%;min-height:46px;margin-top:12px;border:1px solid #111;border-radius:10px;background:#111;color:#fff;padding:0 13px;display:flex;align-items:center;justify-content:space-between;gap:10px;text-transform:uppercase;font-family:inherit;font-size:8px;line-height:1;letter-spacing:.1em;cursor:pointer;box-sizing:border-box;">
               <span>{% if matching_combo.selected_or_first_available_variant.available %}Levar Perfume + Body Splash{% else %}Combo indisponível{% endif %}</span><span>→</span>
             </button>
-            <small>1 Perfume 100 ml + 1 Body Splash 100 ml da mesma fragrância.</small>
+            <small style="display:block;margin-top:7px;font-size:7px;line-height:1.4;color:#8a8178;">1 Perfume 100 ml + 1 Body Splash 100 ml da mesma fragrância.</small>
           </div>
         {% endif %}
       </aside>
     </div>
   </div>
 </section>
+
+<style>
+  .pe-mini-bundle-fixed img{width:78px!important;height:78px!important;max-width:78px!important;min-width:78px!important;object-fit:cover!important}
+  .pe-mini-bundle-fixed button{font:inherit}
+  @media(max-width:749px){
+    .pe-mini-bundle-fixed{margin-top:16px!important;padding:14px!important;border-radius:12px!important}
+    .pe-mini-bundle-fixed img{width:70px!important;height:70px!important;max-width:70px!important;min-width:70px!important}
+    .pe-mini-bundle-fixed a[style*="width:78px"]{width:70px!important;height:70px!important}
+    .pe-mini-bundle-fixed div[style*="grid-template-columns:78px"]{grid-template-columns:70px minmax(0,1fr)!important;gap:10px!important}
+    .pe-mini-bundle-fixed h3{font-size:18px!important}
+  }
+</style>
 
 <section class="pe-product-description-section" id="ProductDescription-{{ section.id }}"><div class="page-width"><div class="pe-product-description-card"><div class="pe-product-description-card__head"><div><div class="eyebrow">PURE ESSENCE · {% if is_body_splash %}BODY SPLASH{% else %}PERFUME{% endif %} · 100 ML</div><h2>{% if is_body_splash %}Conheça o Body Splash{% else %}Conheça a fragrância{% endif %}</h2></div><img src="{{ 'pure-essence-mark.webp' | asset_url }}" alt="" width="120" height="134" loading="lazy"></div><div class="pe-product-description-body">{% if is_body_splash %}{% if product.description != blank %}{{ product.description }}{% else %}<p><strong>{{ product.title }}</strong> é a versão Body Splash da fragrância Pure Essence, criada para uma perfumação mais leve e versátil ao longo do dia.</p><p>Use sozinho ou em conjunto com o perfume correspondente para criar um ritual completo de fragrância.</p>{% endif %}{% else %}{% render 'product-olfactory-profile', product: product %}{% endif %}</div><div class="pe-product-facts"><div><span>01</span><strong>Volume</strong><small>100 ml</small></div><div><span>02</span><strong>Tipo</strong><small>{% if is_body_splash %}Body Splash{% else %}Perfume{% endif %}</small></div><div><span>03</span><strong>Origem</strong><small>Dubai → Brasil</small></div></div></div></div></section>
 
